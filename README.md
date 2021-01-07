@@ -1,11 +1,10 @@
 # Prophet
 
 ### Parse html according to configuration
+[Version info](https://img.shields.io/crates/v/Prophet.svg)](https://crates.io/crates/Prophet)
 
 ### Example:
-#### test.yml
-    test.yml
-    
+#### test.yml    
     last:
       selects:
         - '.a'
@@ -202,7 +201,6 @@
     </html>
     
 #### Code(https://github.com/ptechen/Prophet/blob/main/src/lib.rs)
-
     let yml = read_file("./test_html/test.yml").unwrap();
     let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
     let html = read_file("./test_html/test.html").unwrap();
