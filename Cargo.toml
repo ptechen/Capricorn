@@ -1,5 +1,5 @@
 [package]
-name = "parser"
+name = "Prophet"
 version = "0.1.0"
 authors = ["petechen <15736755067@163.com>"]
 edition = "2018"
