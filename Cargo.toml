@@ -1,0 +1,23 @@
+[package]
+name = "parser"
+version = "0.1.0"
+authors = ["petechen <15736755067@163.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+nipper = "0.1.8"
+quicli = "0.4.0"
+serde_yaml = "0.8.14"
+serde = { version = "1.0.117", features = ["derive"] }
+serde_json = "1.0.59"
+tendril = "0.4.1"
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "benchmark"
+harness = false

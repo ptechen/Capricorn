@@ -1,0 +1,152 @@
+last:
+  selects:
+    - '.a'
+  nodes:
+    last: true
+
+last1:
+  selects:
+    - '.aa'
+  nodes:
+    last: true
+
+text:
+  selects:
+    - '.b'
+
+first:
+  selects:
+    - '.a'
+  nodes:
+    first: true
+
+eq:
+  selects:
+    - '.a'
+  nodes:
+    eq: 0
+
+eeq:
+  selects:
+    - '.aa'
+  nodes:
+    eq: 0
+
+html:
+  selects:
+    - '.a'
+  nodes:
+    eq: 1
+  text_attr_html:
+    html: true
+
+replace:
+  selects:
+    - '.a'
+  nodes:
+    eq: 1
+  replaces: [{from: "1", to: "!"}]
+
+attr:
+  selects:
+    - '.a'
+  nodes:
+    eq: 1
+  text_attr_html:
+    attr: 'href'
+
+deletes:
+  selects:
+    - '.a'
+  nodes:
+    eq: 1
+  text_attr_html:
+    attr: 'href'
+  deletes:
+    - ' '
+    - '\n'
+
+splits:
+  selects:
+    - '.f'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+
+default_val_type:
+  selects:
+    - '.f'
+  has_attr: 'href1dd'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+  default_val_type: "str"
+
+has_attr_splits:
+  selects:
+    - '.f'
+  nodes:
+    eq: 1
+  has_attr: 'href'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+  default_val_type: "vec"
+
+each_keys:
+  selects:
+    - 'ul'
+    - 'li'
+  each_keys:
+    aaaa:
+      selects:
+        - '.a'
+    cccc:
+      selects:
+        - '.b'
+
+each:
+  selects:
+    - 'ul'
+    - 'li'
+  each:
+    selects:
+      - '.a'
+
+#oooo:
+#  html: true
+
+
+eq_selects:
+  selects:
+    - 'ul'
+    - 'li'
+  nodes:
+    eq: 0
+  select_params:
+    selects:
+      - '.a'
+
+parent:
+  selects:
+    - '.parent'
+  nodes:
+    parent: true
+
+children:
+  selects:
+    - '.children'
+  nodes:
+    children: true
+
+prev_sibling:
+  selects:
+    - '.children'
+  nodes:
+    prev_sibling: true
+
+next_sibling:
+  selects:
+    - '.children'
+  nodes:
+    next_sibling: true
