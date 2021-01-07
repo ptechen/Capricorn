@@ -1,7 +1,7 @@
 # Capricorn
 
 ### Parse html according to configuration
-[Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
+[![Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
 
 ### Example:
 #### test.yml    
