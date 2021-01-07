@@ -18,9 +18,9 @@ mod tests {
 
     #[test]
     fn test_run() -> Result<(), Box<dyn std::error::Error>> {
-        let yml = read_file("./test_html/test_content.yml").unwrap();
+        let yml = read_file("./test_html/test.yml").unwrap();
         let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
-        let html = read_file("./test_html/test_content.html").unwrap();
+        let html = read_file("./test_html/test.html").unwrap();
         let r = parse_html(html, v);
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
