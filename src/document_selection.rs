@@ -208,23 +208,6 @@ impl<'a> DocumentSelection<'a> {
         }
         Value::Array(array)
     }
-
-    // fn eq_selects(mut self, params: &SelectParams) -> Value {
-    //     let eq_selects = params.eq_selects.as_ref().as_ref().unwrap();
-    //
-    //     if eq_selects.eq.is_some() {
-    //         let eq = eq_selects.eq.unwrap();
-    //         self = self.eq(eq);
-    //     }
-    //
-    //     if eq_selects.select_params.is_some() {
-    //         let params = eq_selects.select_params.as_ref().unwrap();
-    //         let cur_val = self.parse(params);
-    //         let val = cur_val;
-    //         return val;
-    //     }
-    //     params.get_default_val()
-    // }
 }
 
 fn contains_replaces_deletes_splits(v: String, params: &SelectParams) -> Value {

@@ -16,8 +16,9 @@ mod tests {
     use crate::parse_html;
     use crate::parse::SelectParams;
 
+    /// test parse html function
     #[test]
-    fn test_run() -> Result<(), Box<dyn std::error::Error>> {
+    fn test_parse_html() -> Result<(), Box<dyn std::error::Error>> {
         let yml = read_file("./test_html/test.yml").unwrap();
         let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
         let html = read_file("./test_html/test.html").unwrap();
