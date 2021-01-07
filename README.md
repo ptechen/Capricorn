@@ -10,6 +10,8 @@
         - '.a'
       nodes:
         last: true
+    #  text_attr_html: # Default text, can be omitted
+    #    text: true
     
     last1:
       selects:
