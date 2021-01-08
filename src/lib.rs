@@ -53,7 +53,7 @@ mod tests {
         let yml = read_file("./test_html/regexes_match_parse_html.yml").unwrap();
         let v:  match_html::MatchHtmlVec = serde_yaml::from_str(&yml).unwrap();
         let html = read_file("./test_html/test.html").unwrap();
-        let r =  v.regexes_match_parse_html(html)?;
+        let r =  v.regexes_match_parse_html(&html)?;
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
         assert_eq!(r.get("last1").unwrap(), "");

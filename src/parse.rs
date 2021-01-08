@@ -32,7 +32,7 @@ pub struct SelectParams {
 pub type HashMapSelectParams = HashMap<String, SelectParams>;
 
 /// Parse html entry
-pub fn parse_html(params: &HashMapSelectParams, html: &String) -> Map<String, Value> {
+pub fn parse_html(params: &HashMapSelectParams, html: &str) -> Map<String, Value> {
     let doc = Document::from(html);
     let mut hmp = Map::new();
     for (k, v) in params.iter() {

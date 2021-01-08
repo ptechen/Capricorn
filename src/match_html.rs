@@ -25,7 +25,7 @@ pub struct MatchHtml {
 }
 
 impl MatchHtmlVec {
-    pub fn regexes_match_parse_html(&self, html: String) -> Result<Map<String, Value>, Box<dyn Error>> {
+    pub fn regexes_match_parse_html(&self, html: &str) -> Result<Map<String, Value>, Box<dyn Error>> {
         if self.regexes_match_parse_html.is_none() {
             return Err(Box::from("regexes does not exist"))
         }
@@ -33,13 +33,13 @@ impl MatchHtmlVec {
             if match_html.regex.is_some() && match_html.fields.is_some() {
                 let regular = match_html.regex.as_ref().unwrap();
                 let r = Regex::new(regular)?;
-                if r.is_match(&html) {
+                if r.is_match(html) {
                     if match_html.err.is_some() {
                         let err = match_html.err.as_ref().unwrap();
                         return Err(Box::from(err.to_string()));
                     }
                     let select_params = match_html.fields.as_ref().unwrap();
-                    let mut val = parse::parse_html(select_params, &html);
+                    let mut val = parse::parse_html(select_params, html);
                     if match_html.version.is_some() {
                         let version = match_html.version.as_ref().unwrap();
                         val.insert( String::from("version"), json!(version));
