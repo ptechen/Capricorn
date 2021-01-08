@@ -78,18 +78,40 @@ splits:
 default_val_type:
   selects:
     - '.f'
-  has_attr: 'href1dd'
+  has:
+    attr: 'href1dd'
   splits:
     - {key: 'e', index: 0, enable: true}
     - {key: 'dd', index: 1, enable: true}
   default_val_type: "str"
+
+default_val_type_vec:
+  selects:
+    - '.f'
+  has:
+    attr: 'href1dd'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+  default_val_type: "vec"
+
+default_val_type_map:
+  selects:
+    - '.f'
+  has:
+    attr: 'href1dd'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+  default_val_type: "map"
 
 has_attr_splits:
   selects:
     - '.f'
   nodes:
     eq: 1
-  has_attr: 'href'
+  has:
+    attr: 'href'
   splits:
     - {key: 'e', index: 0, enable: true}
     - {key: 'dd', index: 1, enable: true}
