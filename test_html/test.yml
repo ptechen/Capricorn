@@ -56,6 +56,7 @@ attr:
     eq: 1
   text_attr_html:
     attr: 'href'
+  replaces: [{from: "\n", to: "!"}]
 
 deletes:
   selects:
@@ -75,45 +76,85 @@ splits:
     - {key: 'e', index: 0, enable: true}
     - {key: 'dd', index: 1, enable: true}
 
+asplits1:
+  selects:
+    - '.g'
+  splits:
+    - {key: '\n', index: 0, enable: true}
+    - {key: 'fff', index: 1, enable: true}
+
 default_val_type:
   selects:
     - '.f'
-  has_attr: 'href1dd'
+  has:
+    attr: 'href1dd'
   splits:
     - {key: 'e', index: 0, enable: true}
     - {key: 'dd', index: 1, enable: true}
   default_val_type: "str"
+
+default_val_type_vec:
+  selects:
+    - '.f'
+  has:
+    attr: 'href1dd'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+  default_val_type: "vec"
+
+default_val_type_map:
+  selects:
+    - '.f'
+  has:
+    attr: 'href1dd'
+  splits:
+    - {key: 'e', index: 0, enable: true}
+    - {key: 'dd', index: 1, enable: true}
+  default_val_type: "map"
 
 has_attr_splits:
   selects:
     - '.f'
   nodes:
     eq: 1
-  has_attr: 'href'
+  has:
+    attr: 'href'
   splits:
     - {key: 'e', index: 0, enable: true}
     - {key: 'dd', index: 1, enable: true}
   default_val_type: "vec"
 
-each_keys:
+each_fields:
   selects:
     - 'ul'
     - 'li'
-  each_keys:
-    aaaa:
-      selects:
-        - '.a'
-    cccc:
-      selects:
-        - '.b'
+  each:
+    fields:
+      aaaa:
+        selects:
+          - '.a'
+      cccc:
+        selects:
+          - '.b'
 
 each:
   selects:
     - 'ul'
     - 'li'
   each:
-    selects:
-      - '.a'
+    all:
+      selects:
+        - '.a'
+
+each_one:
+  selects:
+    - 'ul'
+    - 'li'
+  each:
+    one:
+      selects:
+        - '.a'
 
 eq_selects:
   selects:
@@ -148,3 +189,14 @@ next_sibling:
     - '.children'
   nodes:
     next_sibling: true
+
+contains:
+  selects:
+    - '.children'
+  contains:
+    contains:
+      - 'child'
+      - 'ren'
+    not_contains:
+      - '1\n'
+  default_val_type: 'str'

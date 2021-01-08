@@ -1,16 +1,12 @@
 use std::vec::Vec;
+use crate::replace;
 
 pub(crate) type Deletes = Vec<String>;
 
 pub fn deletes(del: &Deletes, mut params: String) -> String {
-    for d in del.iter(){
-        if d == "\\n" {
-            params = params.replace("\n", "")
-        } else if d == "\\t" {
-            params = params.replace("\t", "")
-        } else {
-            params = params.replace(d, "")
-        }
+    for d in del.iter() {
+        let d = replace::special_char(d);
+        params = params.replace(&d, "")
     }
     params
 }

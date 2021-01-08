@@ -6,7 +6,9 @@ mod deletes;
 mod document_selection;
 mod node;
 mod text_attr_html;
-
+mod has;
+mod contains;
+mod each;
 
 
 #[cfg(test)]
@@ -31,7 +33,7 @@ mod tests {
         assert_eq!(r.get("eq").unwrap(), "first");
         assert_eq!(r.get("eeq").unwrap(), "");
         assert_eq!(r.get("replace").unwrap(), "!!!!!!");
-        assert_eq!(r.get("attr").unwrap(), "/te\n    st");
+        assert_eq!(r.get("attr").unwrap(), "/te!    st");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");
@@ -62,7 +64,7 @@ mod tests {
         assert_eq!(r.get("eq").unwrap(), "first");
         assert_eq!(r.get("eeq").unwrap(), "");
         assert_eq!(r.get("replace").unwrap(), "!!!!!!");
-        assert_eq!(r.get("attr").unwrap(), "/te\n    st");
+        assert_eq!(r.get("attr").unwrap(), "/te!    st");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");
@@ -74,6 +76,17 @@ mod tests {
         assert_eq!(r.get("next_sibling").unwrap(), "next");
         assert_eq!(r.get("parent").unwrap(), "parent");
         assert_eq!(r.get("children").unwrap(), "children1children2");
+        println!("{:?}", r);
+        Ok(())
+    }
+
+    /// test regexes match parse html function
+    #[test]
+    fn test_regexes_match_parse_html1() -> Result<(), Box<dyn std::error::Error>> {
+        let yml = read_file("./test_html/index.yml").unwrap();
+        let params: parse::HashMapSelectParams = serde_yaml::from_str(&yml).unwrap();
+        let html = read_file("./test_html/index.html").unwrap();
+        let r = parse::parse_html(&params, &html);
         println!("{:?}", r);
         Ok(())
     }

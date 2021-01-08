@@ -1,7 +1,6 @@
 use std::vec::Vec;
 use nipper::{Document, Selection, Node};
-use serde_json::{Value, Map};
-use tendril::StrTendril;
+use serde_json::Value;
 use crate::document_selection::DocumentSelection::ParseSelection;
 use crate::document_selection::DocumentSelection::ParseDocument;
 use crate::document_selection::DocumentSelection::ParseNode;
@@ -37,10 +36,8 @@ impl<'a> DocumentSelection<'a> {
         }
 
         return if params.each.is_some() {
-            let each = params.each.as_ref().as_ref().unwrap();
-            self.each(each)
-        } else if params.each_keys.is_some() {
-            self.each_keys(params)
+            let each = params.each.as_ref().unwrap();
+            each.each(self)
         } else {
             self.content(params)
         };
@@ -57,19 +54,19 @@ impl<'a> DocumentSelection<'a> {
             let val = self.parse(cur_params);
             return val
         }
-        if params.has_class.is_some() {
-            let s = self.has_class(params);
-            if !s.1 {
+        if params.has.is_some() {
+            let has = params.has.as_ref().unwrap();
+            let (ds, b) = has.class(self);
+            if !b {
                 return params.get_default_val();
             }
-            self = s.0
-        }
-        if params.has_attr.is_some() {
-            let s = self.has_attr(params);
-            if !s.1 {
+            self = ds;
+
+            let (ds, b) =  has.attr(self);
+            if !b {
                 return params.get_default_val();
             }
-            self = s.0
+            self = ds;
         }
 
         if params.text_attr_html.is_none() {
@@ -110,7 +107,7 @@ impl<'a> DocumentSelection<'a> {
         };
     }
 
-    fn nodes(self) -> Vec<Node<'a>> {
+    pub fn nodes(self) -> Vec<Node<'a>> {
         return match self {
             self::ParseDocument(d) => {
                 let root = d.root();
@@ -127,93 +124,54 @@ impl<'a> DocumentSelection<'a> {
         };
     }
 
-    fn each(mut self, params: &SelectParams) -> Value {
-        let nodes = self.nodes();
-        let mut array =Vec::new();
-        for node in nodes.iter() {
-            self = DocumentSelection::ParseNode(node.to_owned());
-            let v = self.parse(params);
-            array.push(v);
-        }
-        Value::Array(array)
-    }
-
-    pub fn has_attr(self, params: &SelectParams) -> (DocumentSelection<'a>, bool) {
-        let attr = params.has_attr.as_ref().unwrap();
-        if attr == "" {
-            return (self, false);
-        }
-        return match self {
-            self::ParseDocument(d) => {
-                let str_tendril = d.root().attr(attr).unwrap();
-                let cur_str = str_tendril.trim();
-                if cur_str == "" {
-                    (DocumentSelection::ParseDocument(d), false)
-                } else {
-                    (DocumentSelection::ParseDocument(d), true)
-                }
-            }
-            self::ParseSelection(d) => {
-                let str_tendril = d.attr(attr).unwrap_or(StrTendril::default());
-                let cur_str = str_tendril.trim();
-                if cur_str == "" {
-                    (DocumentSelection::ParseSelection(d), false)
-                } else {
-                    (DocumentSelection::ParseSelection(d), false)
-                }
-            }
-            self::ParseNode(d) => {
-                let str_tendril = d.attr(attr).unwrap_or(StrTendril::default());
-                let cur_str = str_tendril.trim();
-                if cur_str == "" {
-                    (DocumentSelection::ParseNode(d), false)
-                } else {
-                    (DocumentSelection::ParseNode(d), true)
-                }
-            }
-        };
-    }
-
-    pub fn has_class(self, params: &SelectParams) -> (DocumentSelection<'a>, bool) {
-        let class = params.has_attr.as_ref().unwrap();
-        if class == "" {
-            return (self, false);
-        }
-        return match self {
-            self::ParseDocument(d) => {
-                (DocumentSelection::ParseDocument(d), d.root().has_class(class))
-            }
-            self::ParseSelection(d) => {
-                (DocumentSelection::ParseSelection(d.to_owned()), d.to_owned().has_class(class))
-            }
-            self::ParseNode(d) => {
-                (DocumentSelection::ParseNode(d.to_owned()), d.to_owned().has_class(class))
-            }
-        };
-    }
-
-    fn each_keys(self, params: &SelectParams) -> Value {
-        let each_keys = params.each_keys.as_ref().unwrap();
-        let nodes = self.nodes();
-        let mut array = Vec::new();
-        for node in nodes.iter() {
-            let mut cur_map = Map::new();
-            for (k, v) in each_keys.iter() {
-                let ds = DocumentSelection::ParseNode(node.to_owned());
-                let c_val = ds.parse(v);
-                let val = c_val;
-                cur_map.insert(k.to_string(), Value::from(val));
-            }
-            array.push(Value::Object(cur_map));
-        }
-        Value::Array(array)
-    }
+    // fn each(mut self, params: &SelectParams) -> Value {
+    //     let nodes = self.nodes();
+    //     let mut array =Vec::new();
+    //     for node in nodes.iter() {
+    //         self = DocumentSelection::ParseNode(node.to_owned());
+    //         let v = self.parse(params);
+    //         array.push(v);
+    //     }
+    //     Value::Array(array)
+    // }
+    //
+    // fn each_one(mut self, params: &SelectParams) -> Value {
+    //     let nodes = self.nodes();
+    //     for node in nodes.iter() {
+    //         self = DocumentSelection::ParseNode(node.to_owned());
+    //         let v = self.parse(params);
+    //         if v.is_null() {
+    //             continue
+    //         }
+    //         return v
+    //     }
+    //     params.get_default_val()
+    // }
+    //
+    // fn each_keys(self, params: &SelectParams) -> Value {
+    //     let each_keys = params.each_keys.as_ref().unwrap();
+    //     let nodes = self.nodes();
+    //     let mut array = Vec::new();
+    //     for node in nodes.iter() {
+    //         let mut cur_map = Map::new();
+    //         for (k, v) in each_keys.iter() {
+    //             let ds = DocumentSelection::ParseNode(node.to_owned());
+    //             let c_val = ds.parse(v);
+    //             let val = c_val;
+    //             cur_map.insert(k.to_string(), Value::from(val));
+    //         }
+    //         array.push(Value::Object(cur_map));
+    //     }
+    //     Value::Array(array)
+    // }
 }
 
 fn contains_replaces_deletes_splits(v: String, params: &SelectParams) -> Value {
-    if !params.contains_text(&v) ||
-        !params.not_contains_text(&v) {
-        return params.get_default_val();
+    if params.contains.is_some() {
+        let contains = params.contains.as_ref().unwrap();
+        if !contains.contains(&v) || !contains.not_contains(&v) {
+            return params.get_default_val();
+        };
     }
     let val = replaces_deletes_splits(params, v);
     val
@@ -228,8 +186,8 @@ fn replaces_deletes_splits(params: &SelectParams, mut v: String) -> Value {
     if params.deletes.is_some() {
         let del = params.deletes.as_ref().unwrap();
         v = deletes::deletes(del, v);
-
     }
+
     if params.splits.is_some() {
         let s = params.splits.as_ref().unwrap();
         let val = splits::splits(s, v);
