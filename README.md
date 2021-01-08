@@ -4,7 +4,7 @@
 [![Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
 
 ### Example:
-#### test.yml    
+#### Parse html, test.yml:（https://github.com/ptechen/Capricorn/blob/main/test_html/test.yml）    
     last:
       selects:
         - '.a'
@@ -18,148 +18,42 @@
         - '.aa'
       nodes:
         last: true
+
+#### Multi-version regular matching parsing html, regexes_match_parse_html.yml(https://github.com/ptechen/Capricorn/blob/main/test_html/regexes_match_parse_html.yml)
+    regexes_match_parse_html:
+      - regex: 'error'
+        version: 1
+        err: "" # Custom error message, return error message directly if the regular expression matches successfully
+        fields:
+          last:
+            selects:
+              - '.a'
+            nodes:
+              last: true
+          #  text_attr_html: # Default text, can be omitted
+          #    text: true
     
-    text:
-      selects:
-        - '.b'
+      - regex: '.*?'
+        version: 1
+        fields:
+          last:
+            selects:
+              - '.a'
+            nodes:
+              last: true
+          #  text_attr_html: # Default text, can be omitted
+          #    text: true
     
-    first:
-      selects:
-        - '.a'
-      nodes:
-        first: true
+          last1:
+            selects:
+              - '.aa'
+            nodes:
+              last: true
     
-    eq:
-      selects:
-        - '.a'
-      nodes:
-        eq: 0
-    
-    eeq:
-      selects:
-        - '.aa'
-      nodes:
-        eq: 0
-    
-    html:
-      selects:
-        - '.a'
-      nodes:
-        eq: 1
-      text_attr_html:
-        html: true
-    
-    replace:
-      selects:
-        - '.a'
-      nodes:
-        eq: 1
-      replaces: [{from: "1", to: "!"}]
-    
-    attr:
-      selects:
-        - '.a'
-      nodes:
-        eq: 1
-      text_attr_html:
-        attr: 'href'
-    
-    deletes:
-      selects:
-        - '.a'
-      nodes:
-        eq: 1
-      text_attr_html:
-        attr: 'href'
-      deletes:
-        - ' '
-        - '\n'
-    
-    splits:
-      selects:
-        - '.f'
-      splits:
-        - {key: 'e', index: 0, enable: true}
-        - {key: 'dd', index: 1, enable: true}
-    
-    default_val_type:
-      selects:
-        - '.f'
-      has_attr: 'href1dd'
-      splits:
-        - {key: 'e', index: 0, enable: true}
-        - {key: 'dd', index: 1, enable: true}
-      default_val_type: "str"
-    
-    has_attr_splits:
-      selects:
-        - '.f'
-      nodes:
-        eq: 1
-      has_attr: 'href'
-      splits:
-        - {key: 'e', index: 0, enable: true}
-        - {key: 'dd', index: 1, enable: true}
-      default_val_type: "vec"
-    
-    each_keys:
-      selects:
-        - 'ul'
-        - 'li'
-      each_keys:
-        aaaa:
-          selects:
-            - '.a'
-        cccc:
-          selects:
-            - '.b'
-    
-    each:
-      selects:
-        - 'ul'
-        - 'li'
-      each:
-        selects:
-          - '.a'
-    
-    #oooo:
-    #  html: true
-    
-    
-    eq_selects:
-      selects:
-        - 'ul'
-        - 'li'
-      nodes:
-        eq: 0
-      select_params:
-        selects:
-          - '.a'
-    
-    parent:
-      selects:
-        - '.parent'
-      nodes:
-        parent: true
-    
-    children:
-      selects:
-        - '.children'
-      nodes:
-        children: true
-    
-    prev_sibling:
-      selects:
-        - '.children'
-      nodes:
-        prev_sibling: true
-    
-    next_sibling:
-      selects:
-        - '.children'
-      nodes:
-        next_sibling: true
-        
+          text:
+            selects:
+              - '.b'
+     
 #### test.html:
     <!DOCTYPE html>
     <html lang="en">
@@ -202,9 +96,14 @@
     </body>
     </html>
     
-#### Code(https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
+#### Parse html code(https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
     let yml = read_file("./test_html/test.yml").unwrap();
     let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
     let html = read_file("./test_html/test.html").unwrap();
     let r = parse_html(html, v);
     
+#### Multi-version regular matching parsing html code(https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
+    let yml = read_file("./test_html/regexes_match_parse_html.yml").unwrap();
+    let v:  match_html::MatchHtmlVec = serde_yaml::from_str(&yml).unwrap();
+    let html = read_file("./test_html/test.html").unwrap();
+    let r =  v.regexes_match_parse_html(html)?;

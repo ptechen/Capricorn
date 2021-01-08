@@ -115,10 +115,6 @@ each:
     selects:
       - '.a'
 
-#oooo:
-#  html: true
-
-
 eq_selects:
   selects:
     - 'ul'
