@@ -1,0 +1,11 @@
+desc:
+  selects:
+    - '.job-sec'
+    - '.text'
+  each:
+    one:
+      contains:
+        contains:
+          - '职位描述'
+      splits:
+        - {key: '职位描述：', index: 0, enable: true}

@@ -53,6 +53,12 @@
           text:
             selects:
               - '.b'
+    
+          first:
+            selects:
+              - '.a'
+            nodes:
+              first: true
      
 #### test.html:
     <!DOCTYPE html>

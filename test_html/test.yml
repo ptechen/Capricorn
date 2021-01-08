@@ -125,25 +125,36 @@ has_attr_splits:
     - {key: 'dd', index: 1, enable: true}
   default_val_type: "vec"
 
-each_keys:
+each_fields:
   selects:
     - 'ul'
     - 'li'
-  each_keys:
-    aaaa:
-      selects:
-        - '.a'
-    cccc:
-      selects:
-        - '.b'
+  each:
+    fields:
+      aaaa:
+        selects:
+          - '.a'
+      cccc:
+        selects:
+          - '.b'
 
 each:
   selects:
     - 'ul'
     - 'li'
   each:
-    selects:
-      - '.a'
+    all:
+      selects:
+        - '.a'
+
+each_one:
+  selects:
+    - 'ul'
+    - 'li'
+  each:
+    one:
+      selects:
+        - '.a'
 
 eq_selects:
   selects:

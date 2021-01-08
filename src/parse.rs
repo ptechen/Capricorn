@@ -10,6 +10,7 @@ use crate::text_attr_html;
 use crate::document_selection::DocumentSelection;
 use crate::has;
 use crate::contains;
+use crate::each;
 
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
@@ -18,8 +19,8 @@ pub struct SelectParams {
     pub selects: Option<Vec<String>>,
     pub nodes: Option<node::Node>,
     pub text_attr_html: Option<text_attr_html::TextAttrHtml>,
-    pub each: Box<Option<SelectParams>>,
-    pub each_keys: Option<HashMapSelectParams>,
+    /// each: all、fields、one
+    pub each: Option<each::Each>,
     pub select_params: Box<Option<SelectParams>>,
     /// has: has class and has attr
     pub has: Option<has::Has>,
@@ -31,7 +32,7 @@ pub struct SelectParams {
     pub default_val_type: Option<String>,
 }
 
-pub type HashMapSelectParams = HashMap<String, SelectParams>;
+pub(crate) type HashMapSelectParams = HashMap<String, SelectParams>;
 
 /// Parse html entry
 pub fn parse_html(params: &HashMapSelectParams, html: &str) -> Map<String, Value> {
