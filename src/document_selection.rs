@@ -156,9 +156,11 @@ impl<'a> DocumentSelection<'a> {
 }
 
 fn contains_replaces_deletes_splits(v: String, params: &SelectParams) -> Value {
-    if !params.contains_text(&v) ||
-        !params.not_contains_text(&v) {
-        return params.get_default_val();
+    if params.contains.is_some() {
+        let contains = params.contains.as_ref().unwrap();
+        if !contains.contains(&v) || !contains.not_contains(&v) {
+            return params.get_default_val();
+        };
     }
     let val = replaces_deletes_splits(params, v);
     val
@@ -173,8 +175,8 @@ fn replaces_deletes_splits(params: &SelectParams, mut v: String) -> Value {
     if params.deletes.is_some() {
         let del = params.deletes.as_ref().unwrap();
         v = deletes::deletes(del, v);
-
     }
+
     if params.splits.is_some() {
         let s = params.splits.as_ref().unwrap();
         let val = splits::splits(s, v);

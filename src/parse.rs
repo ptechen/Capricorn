@@ -9,6 +9,7 @@ use crate::node;
 use crate::text_attr_html;
 use crate::document_selection::DocumentSelection;
 use crate::has;
+use crate::contains;
 
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
@@ -20,11 +21,11 @@ pub struct SelectParams {
     pub each: Box<Option<SelectParams>>,
     pub each_keys: Option<HashMapSelectParams>,
     pub select_params: Box<Option<SelectParams>>,
-    /// has class and attr
+    /// has: has class and has attr
     pub has: Option<has::Has>,
+    /// contains: contains and not contains
+    pub contains: Option<contains::Contains>,
     pub splits: Option<Splits>,
-    pub contains_text: Option<Vec<String>>,
-    pub not_contains_text: Option<Vec<String>>,
     pub deletes: Option<Deletes>,
     pub replaces: Option<Replaces>,
     pub default_val_type: Option<String>,
@@ -69,32 +70,6 @@ impl SelectParams {
             return default;
         }
         return Value::default();
-    }
-
-    pub fn contains_text(&self, text: &str) -> bool {
-        if self.contains_text.is_some() {
-            let params = self.contains_text.as_ref().unwrap();
-            for pat in params.iter() {
-                let b = text.contains(pat);
-                if !b {
-                    return false;
-                }
-            }
-        };
-        true
-    }
-
-    pub fn not_contains_text(&self, text: &str) -> bool {
-        if self.contains_text.is_some() {
-            let params = self.contains_text.as_ref().unwrap();
-            for pat in params.iter() {
-                let b = text.contains(pat);
-                if b {
-                    return false;
-                }
-            }
-        }
-        true
     }
 }
 

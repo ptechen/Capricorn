@@ -12,9 +12,9 @@ impl Replace {
             return String::from(params)
         }
         let from = self.from.as_ref().unwrap();
-        let from = &special_char(from.to_string());
+        let from = &special_char(from);
         let to = self.to.as_ref().unwrap();
-        let to = &special_char(to.to_string());
+        let to = &special_char(to);
         params.replace(from, to)
     }
 }
@@ -28,13 +28,16 @@ pub fn replaces(reps: &Replaces, mut params: String) -> String {
     String::from(params)
 }
 
-fn special_char(params: String) -> String {
-    if "\\n" == params {
-        let cur = String::from("\n");
+pub fn special_char(params: &str) -> String {
+    if params.contains("\\n") {
+        let cur = params.replace("\\n", "\n");
         return cur
-    } else if params == "\\t" {
-        let cur = String::from("\t");
+    } else if params.contains("\\t") {
+        let cur = params.replace("\\t","\t");
+        return cur
+    } else if params.contains("\\r") {
+        let cur = params.replace("\\r","\r");
         return cur
     }
-    params
+    String::from(params)
 }

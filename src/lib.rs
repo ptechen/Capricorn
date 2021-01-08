@@ -7,6 +7,7 @@ mod document_selection;
 mod node;
 mod text_attr_html;
 mod has;
+mod contains;
 
 
 #[cfg(test)]
@@ -31,7 +32,7 @@ mod tests {
         assert_eq!(r.get("eq").unwrap(), "first");
         assert_eq!(r.get("eeq").unwrap(), "");
         assert_eq!(r.get("replace").unwrap(), "!!!!!!");
-        assert_eq!(r.get("attr").unwrap(), "/te\n    st");
+        assert_eq!(r.get("attr").unwrap(), "/te!    st");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");
@@ -62,7 +63,7 @@ mod tests {
         assert_eq!(r.get("eq").unwrap(), "first");
         assert_eq!(r.get("eeq").unwrap(), "");
         assert_eq!(r.get("replace").unwrap(), "!!!!!!");
-        assert_eq!(r.get("attr").unwrap(), "/te\n    st");
+        assert_eq!(r.get("attr").unwrap(), "/te!    st");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");

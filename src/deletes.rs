@@ -8,6 +8,8 @@ pub fn deletes(del: &Deletes, mut params: String) -> String {
             params = params.replace("\n", "")
         } else if d == "\\t" {
             params = params.replace("\t", "")
+        } else if d == "\\r" {
+            params = params.replace("\r", "")
         } else {
             params = params.replace(d, "")
         }
