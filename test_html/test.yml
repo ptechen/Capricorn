@@ -76,6 +76,13 @@ splits:
     - {key: 'e', index: 0, enable: true}
     - {key: 'dd', index: 1, enable: true}
 
+asplits1:
+  selects:
+    - '.g'
+  splits:
+    - {key: '\n', index: 0, enable: true}
+    - {key: 'fff', index: 1, enable: true}
+
 default_val_type:
   selects:
     - '.f'

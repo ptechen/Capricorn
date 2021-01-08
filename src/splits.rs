@@ -1,5 +1,6 @@
 use serde::Deserialize;
 use serde_json::Value;
+use crate::replace;
 
 #[derive(Deserialize, Clone, Debug)]
 pub struct Split {
@@ -12,7 +13,8 @@ impl Split {
     pub fn split(&self, params: Value) -> Value {
         if self.key.is_some() {
             let key = self.key.as_ref().unwrap();
-            let val:Vec<&str> = params.as_str().unwrap().split(key).collect();
+            let key = replace::special_char(key);
+            let val:Vec<&str> = params.as_str().unwrap().split(&key).collect();
             if self.enable.is_some() && self.index.is_some(){
                 let enable = self.enable.unwrap();
                 if enable {
