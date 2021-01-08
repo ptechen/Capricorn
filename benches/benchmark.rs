@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use capricorn::parse_html;
+use capricorn::parse;
 use quicli::prelude::*;
 use serde_yaml;
 use std::collections::HashMap;
@@ -10,14 +10,14 @@ pub fn set_heap(){
     let yml = read_file("./test_html/test.yml").unwrap();
     let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
     let html = read_file("./test_html/test.html").unwrap();
-    parse_html(&html, v);
+    parse::parse_html( &v, &html);
 }
 
 pub fn box_stock(){
     let yml = read_file("./test_html/test.yml").unwrap();
     let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
     let html = read_file("./test_html/test.html").unwrap();
-    Box::new(parse_html(&html, v));
+    Box::new(parse::parse_html(&v, &html));
 }
 
 fn criterion_benchmark_heap(c: &mut Criterion) {
