@@ -97,10 +97,10 @@
     </html>
     
 #### [Parse html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
-    let yml = read_file("./test_html/test.yml").unwrap();
-    let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
-    let html = read_file("./test_html/test.html").unwrap();
-    let r = parse_html(html, v);
+   let yml = read_file("./test_html/test.yml").unwrap();
+   let params: parse::HashMapSelectParams = serde_yaml::from_str(&yml).unwrap();
+   let html = read_file("./test_html/test.html").unwrap();
+   let r = parse::parse_html(&params, &html);
     
 #### [Multi-version regular matching parsing html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
     let yml = read_file("./test_html/regexes_match_parse_html.yml").unwrap();
