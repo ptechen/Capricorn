@@ -1,7 +1,6 @@
 use std::vec::Vec;
 use nipper::{Document, Selection, Node};
 use serde_json::{Value, Map};
-use tendril::StrTendril;
 use crate::document_selection::DocumentSelection::ParseSelection;
 use crate::document_selection::DocumentSelection::ParseDocument;
 use crate::document_selection::DocumentSelection::ParseNode;
@@ -57,19 +56,19 @@ impl<'a> DocumentSelection<'a> {
             let val = self.parse(cur_params);
             return val
         }
-        if params.has_class.is_some() {
-            let s = self.has_class(params);
-            if !s.1 {
+        if params.has.is_some() {
+            let has = params.has.as_ref().unwrap();
+            let (ds, b) = has.class(self);
+            if !b {
                 return params.get_default_val();
             }
-            self = s.0
-        }
-        if params.has_attr.is_some() {
-            let s = self.has_attr(params);
-            if !s.1 {
+            self = ds;
+
+            let (ds, b) =  has.attr(self);
+            if !b {
                 return params.get_default_val();
             }
-            self = s.0
+            self = ds;
         }
 
         if params.text_attr_html.is_none() {
@@ -136,60 +135,6 @@ impl<'a> DocumentSelection<'a> {
             array.push(v);
         }
         Value::Array(array)
-    }
-
-    pub fn has_attr(self, params: &SelectParams) -> (DocumentSelection<'a>, bool) {
-        let attr = params.has_attr.as_ref().unwrap();
-        if attr == "" {
-            return (self, false);
-        }
-        return match self {
-            self::ParseDocument(d) => {
-                let str_tendril = d.root().attr(attr).unwrap();
-                let cur_str = str_tendril.trim();
-                if cur_str == "" {
-                    (DocumentSelection::ParseDocument(d), false)
-                } else {
-                    (DocumentSelection::ParseDocument(d), true)
-                }
-            }
-            self::ParseSelection(d) => {
-                let str_tendril = d.attr(attr).unwrap_or(StrTendril::default());
-                let cur_str = str_tendril.trim();
-                if cur_str == "" {
-                    (DocumentSelection::ParseSelection(d), false)
-                } else {
-                    (DocumentSelection::ParseSelection(d), false)
-                }
-            }
-            self::ParseNode(d) => {
-                let str_tendril = d.attr(attr).unwrap_or(StrTendril::default());
-                let cur_str = str_tendril.trim();
-                if cur_str == "" {
-                    (DocumentSelection::ParseNode(d), false)
-                } else {
-                    (DocumentSelection::ParseNode(d), true)
-                }
-            }
-        };
-    }
-
-    pub fn has_class(self, params: &SelectParams) -> (DocumentSelection<'a>, bool) {
-        let class = params.has_attr.as_ref().unwrap();
-        if class == "" {
-            return (self, false);
-        }
-        return match self {
-            self::ParseDocument(d) => {
-                (DocumentSelection::ParseDocument(d), d.root().has_class(class))
-            }
-            self::ParseSelection(d) => {
-                (DocumentSelection::ParseSelection(d.to_owned()), d.to_owned().has_class(class))
-            }
-            self::ParseNode(d) => {
-                (DocumentSelection::ParseNode(d.to_owned()), d.to_owned().has_class(class))
-            }
-        };
     }
 
     fn each_keys(self, params: &SelectParams) -> Value {

@@ -6,7 +6,7 @@ mod deletes;
 mod document_selection;
 mod node;
 mod text_attr_html;
-
+mod has;
 
 
 #[cfg(test)]

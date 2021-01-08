@@ -8,6 +8,7 @@ use crate::deletes::Deletes;
 use crate::node;
 use crate::text_attr_html;
 use crate::document_selection::DocumentSelection;
+use crate::has;
 
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
@@ -19,8 +20,8 @@ pub struct SelectParams {
     pub each: Box<Option<SelectParams>>,
     pub each_keys: Option<HashMapSelectParams>,
     pub select_params: Box<Option<SelectParams>>,
-    pub has_attr: Option<String>,
-    pub has_class: Option<String>,
+    /// has class and attr
+    pub has: Option<has::Has>,
     pub splits: Option<Splits>,
     pub contains_text: Option<Vec<String>>,
     pub not_contains_text: Option<Vec<String>>,
