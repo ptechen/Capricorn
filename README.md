@@ -4,7 +4,7 @@
 [![Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
 
 ### Example:
-#### Parse html, test.yml:（https://github.com/ptechen/Capricorn/blob/main/test_html/test.yml）    
+#### [Parse html, test.yml, more...](https://github.com/ptechen/Capricorn/blob/main/test_html/test.yml)
     last:
       selects:
         - '.a'
@@ -19,7 +19,7 @@
       nodes:
         last: true
 
-#### Multi-version regular matching parsing html, regexes_match_parse_html.yml(https://github.com/ptechen/Capricorn/blob/main/test_html/regexes_match_parse_html.yml)
+#### [Multi-version regular matching parsing html, regexes_match_parse_html.yml, more...](https://github.com/ptechen/Capricorn/blob/main/test_html/regexes_match_parse_html.yml)
     regexes_match_parse_html:
       - regex: 'error'
         version: 1
@@ -96,13 +96,13 @@
     </body>
     </html>
     
-#### Parse html code(https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
+#### [Parse html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
     let yml = read_file("./test_html/test.yml").unwrap();
     let v: HashMap<String, SelectParams> = serde_yaml::from_str(&yml).unwrap();
     let html = read_file("./test_html/test.html").unwrap();
     let r = parse_html(html, v);
     
-#### Multi-version regular matching parsing html code(https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
+#### [Multi-version regular matching parsing html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
     let yml = read_file("./test_html/regexes_match_parse_html.yml").unwrap();
     let v:  match_html::MatchHtmlVec = serde_yaml::from_str(&yml).unwrap();
     let html = read_file("./test_html/test.html").unwrap();
