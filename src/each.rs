@@ -4,6 +4,7 @@ use crate::parse::SelectParams;
 use crate::parse::HashMapSelectParams;
 use crate::document_selection::DocumentSelection;
 
+/// Each: Only one of all, fields and one can exist at the same time.
 #[derive(Default, Deserialize, Clone, Debug)]
 pub struct Each {
     pub all: Box<Option<SelectParams>>,
