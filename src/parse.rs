@@ -32,7 +32,7 @@ pub struct SelectParams {
     pub default_val_type: Option<String>,
 }
 
-pub(crate) type HashMapSelectParams = HashMap<String, SelectParams>;
+pub type HashMapSelectParams = HashMap<String, SelectParams>;
 
 /// Parse html entry
 pub fn parse_html(params: &HashMapSelectParams, html: &str) -> Map<String, Value> {

@@ -1,0 +1,49 @@
+each_fields:
+  selects:
+    - ul
+    - li
+  each:
+    fields:
+      city_field:
+        selects:
+          - .city
+          - a
+      code_field:
+        selects:
+          - .code
+          - a
+
+each:
+  selects:
+    - ul
+    - li
+  each:
+    all:
+      selects:
+        - .city
+        - a
+
+each_one:
+  selects:
+    - ul
+    - li
+  each:
+    one:
+      selects:
+        - .city
+        - a
+
+each_one_contains:
+  selects:
+    - ul
+    - li
+  each:
+    one:
+      selects:
+        - .city
+        - a
+      contains:
+        contains:
+          - 上海
+        not_contains:
+          - 杭州

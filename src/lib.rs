@@ -21,9 +21,9 @@ mod tests {
     /// test parse html function
     #[test]
     fn test_parse_html() -> Result<(), Box<dyn std::error::Error>> {
-        let yml = read_file("./test_html/test.yml").unwrap();
+        let yml = read_file("./test_pages/test.yml").unwrap();
         let params: parse::HashMapSelectParams = serde_yaml::from_str(&yml).unwrap();
-        let html = read_file("./test_html/test.html").unwrap();
+        let html = read_file("./test_pages/test.html").unwrap();
         let r = parse::parse_html(&params, &html);
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
@@ -52,9 +52,9 @@ mod tests {
     /// test regexes match parse html function
     #[test]
     fn test_regexes_match_parse_html() -> Result<(), Box<dyn std::error::Error>> {
-        let yml = read_file("./test_html/regexes_match_parse_html.yml").unwrap();
+        let yml = read_file("./test_pages/regexes_match_parse_html.yml").unwrap();
         let v:  match_html::MatchHtmlVec = serde_yaml::from_str(&yml).unwrap();
-        let html = read_file("./test_html/test.html").unwrap();
+        let html = read_file("./test_pages/test.html").unwrap();
         let r =  v.regexes_match_parse_html(&html)?;
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
@@ -83,9 +83,9 @@ mod tests {
     /// test regexes match parse html function
     #[test]
     fn test_regexes_match_parse_html1() -> Result<(), Box<dyn std::error::Error>> {
-        let yml = read_file("./test_html/index.yml").unwrap();
+        let yml = read_file("./test_pages/index.yml").unwrap();
         let params: parse::HashMapSelectParams = serde_yaml::from_str(&yml).unwrap();
-        let html = read_file("./test_html/index.html").unwrap();
+        let html = read_file("./test_pages/index.html").unwrap();
         let r = parse::parse_html(&params, &html);
         println!("{:?}", r);
         Ok(())

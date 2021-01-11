@@ -123,47 +123,6 @@ impl<'a> DocumentSelection<'a> {
             }
         };
     }
-
-    // fn each(mut self, params: &SelectParams) -> Value {
-    //     let nodes = self.nodes();
-    //     let mut array =Vec::new();
-    //     for node in nodes.iter() {
-    //         self = DocumentSelection::ParseNode(node.to_owned());
-    //         let v = self.parse(params);
-    //         array.push(v);
-    //     }
-    //     Value::Array(array)
-    // }
-    //
-    // fn each_one(mut self, params: &SelectParams) -> Value {
-    //     let nodes = self.nodes();
-    //     for node in nodes.iter() {
-    //         self = DocumentSelection::ParseNode(node.to_owned());
-    //         let v = self.parse(params);
-    //         if v.is_null() {
-    //             continue
-    //         }
-    //         return v
-    //     }
-    //     params.get_default_val()
-    // }
-    //
-    // fn each_keys(self, params: &SelectParams) -> Value {
-    //     let each_keys = params.each_keys.as_ref().unwrap();
-    //     let nodes = self.nodes();
-    //     let mut array = Vec::new();
-    //     for node in nodes.iter() {
-    //         let mut cur_map = Map::new();
-    //         for (k, v) in each_keys.iter() {
-    //             let ds = DocumentSelection::ParseNode(node.to_owned());
-    //             let c_val = ds.parse(v);
-    //             let val = c_val;
-    //             cur_map.insert(k.to_string(), Value::from(val));
-    //         }
-    //         array.push(Value::Object(cur_map));
-    //     }
-    //     Value::Array(array)
-    // }
 }
 
 fn contains_replaces_deletes_splits(v: String, params: &SelectParams) -> Value {

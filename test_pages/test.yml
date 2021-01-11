@@ -1,6 +1,6 @@
 last:
   selects:
-    - '.a'
+    - .a
   nodes:
     last: true
 #  text_attr_html: # Default text, can be omitted
@@ -8,35 +8,35 @@ last:
 
 last1:
   selects:
-    - '.aa'
+    - .aa
   nodes:
     last: true
 
 text:
   selects:
-    - '.b'
+    - .b
 
 first:
   selects:
-    - '.a'
+    - .a
   nodes:
     first: true
 
 eq:
   selects:
-    - '.a'
+    - .a
   nodes:
     eq: 0
 
 eeq:
   selects:
-    - '.aa'
+    - .aa
   nodes:
     eq: 0
 
 html:
   selects:
-    - '.a'
+    - .a
   nodes:
     eq: 1
   text_attr_html:
@@ -44,159 +44,159 @@ html:
 
 replace:
   selects:
-    - '.a'
+    - .a
   nodes:
     eq: 1
   replaces: [{from: "1", to: "!"}]
 
 attr:
   selects:
-    - '.a'
+    - .a
   nodes:
     eq: 1
   text_attr_html:
-    attr: 'href'
+    attr: href
   replaces: [{from: "\n", to: "!"}]
 
 deletes:
   selects:
-    - '.a'
+    - .a
   nodes:
     eq: 1
   text_attr_html:
-    attr: 'href'
+    attr: href
   deletes:
-    - ' '
-    - '\n'
+    -  
+    - \n
 
 splits:
   selects:
-    - '.f'
+    - .f
   splits:
-    - {key: 'e', index: 0, enable: true}
-    - {key: 'dd', index: 1, enable: true}
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
 
 asplits1:
   selects:
-    - '.g'
+    - .g
   splits:
-    - {key: '\n', index: 0, enable: true}
-    - {key: 'fff', index: 1, enable: true}
+    - {key: \n, index: 0, enable: true}
+    - {key: fff, index: 1, enable: true}
 
 default_val_type:
   selects:
-    - '.f'
+    - .f
   has:
-    attr: 'href1dd'
+    attr: href1dd
   splits:
-    - {key: 'e', index: 0, enable: true}
-    - {key: 'dd', index: 1, enable: true}
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
   default_val_type: "str"
 
 default_val_type_vec:
   selects:
-    - '.f'
+    - .f
   has:
-    attr: 'href1dd'
+    attr: href1dd
   splits:
-    - {key: 'e', index: 0, enable: true}
-    - {key: 'dd', index: 1, enable: true}
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
   default_val_type: "vec"
 
 default_val_type_map:
   selects:
-    - '.f'
+    - .f
   has:
-    attr: 'href1dd'
+    attr: href1dd
   splits:
-    - {key: 'e', index: 0, enable: true}
-    - {key: 'dd', index: 1, enable: true}
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
   default_val_type: "map"
 
 has_attr_splits:
   selects:
-    - '.f'
+    - .f
   nodes:
     eq: 1
   has:
-    attr: 'href'
+    attr: href
   splits:
-    - {key: 'e', index: 0, enable: true}
-    - {key: 'dd', index: 1, enable: true}
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
   default_val_type: "vec"
 
 each_fields:
   selects:
-    - 'ul'
-    - 'li'
+    - ul
+    - li
   each:
     fields:
       aaaa:
         selects:
-          - '.a'
+          - .a
       cccc:
         selects:
-          - '.b'
+          - .b
 
 each:
   selects:
-    - 'ul'
-    - 'li'
+    - ul
+    - li
   each:
     all:
       selects:
-        - '.a'
+        - .a
 
 each_one:
   selects:
-    - 'ul'
-    - 'li'
+    - ul
+    - li
   each:
     one:
       selects:
-        - '.a'
+        - .a
 
 eq_selects:
   selects:
-    - 'ul'
-    - 'li'
+    - ul
+    - li
   nodes:
     eq: 0
   select_params:
     selects:
-      - '.a'
+      - .a
 
 parent:
   selects:
-    - '.parent'
+    - .parent
   nodes:
     parent: true
 
 children:
   selects:
-    - '.children'
+    - .children
   nodes:
     children: true
 
 prev_sibling:
   selects:
-    - '.children'
+    - .children
   nodes:
     prev_sibling: true
 
 next_sibling:
   selects:
-    - '.children'
+    - .children
   nodes:
     next_sibling: true
 
 contains:
   selects:
-    - '.children'
+    - .children
   contains:
     contains:
-      - 'child'
-      - 'ren'
+      - child
+      - ren
     not_contains:
-      - '1\n'
-  default_val_type: 'str'
+      - 1\n
+  default_val_type: str

@@ -1,0 +1,23 @@
+first:
+  selects:
+    - .a
+  nodes:
+    first: true
+
+last:
+  selects:
+    - a
+  nodes:
+    last: true
+
+last1:
+  selects:
+    - b
+  nodes:
+    last: true
+
+eq:
+  selects:
+    - .a
+  nodes:
+    eq: 0

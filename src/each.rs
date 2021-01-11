@@ -17,7 +17,7 @@ impl Each {
         return if self.all.is_some() {
             self.all(ds)
         } else if self.fields.is_some() {
-            self.keys(ds)
+            self.fields(ds)
         } else {
             self.one(ds)
         }
@@ -49,7 +49,7 @@ impl Each {
         params.get_default_val()
     }
 
-    fn keys<'a>(&self, ds: DocumentSelection<'a>) -> Value {
+    fn fields<'a>(&self, ds: DocumentSelection<'a>) -> Value {
         let each_keys = self.fields.as_ref().unwrap();
         let nodes = ds.nodes();
         let mut array = Vec::new();
