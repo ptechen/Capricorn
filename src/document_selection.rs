@@ -16,6 +16,11 @@ pub enum DocumentSelection<'a> {
     ParseNode(Node<'a>),
 }
 
+pub enum DocumentSelectionValue<'a> {
+    DocumentSelection(DocumentSelection<'a>),
+    Value(Value)
+}
+
 impl<'a> Default for DocumentSelection<'a> {
     fn default() -> DocumentSelection<'a> {
         let ds = Selection::default();
@@ -26,7 +31,11 @@ impl<'a> Default for DocumentSelection<'a> {
 impl<'a> DocumentSelection<'a> {
 
     pub fn parse(self, params: &'a SelectParams) -> Value{
-        self.parse_html(params)
+        if params.exec_order.is_none() {
+            self.parse_html(params)
+        } else {
+
+        }
     }
 
     fn parse_html(mut self, params: &SelectParams) -> Value {
@@ -43,17 +52,45 @@ impl<'a> DocumentSelection<'a> {
         };
     }
 
+    fn parse_exec_order(mut self, params: &SelectParams, exec: &str) -> DocumentSelectionValue<'a> {
+        return match exec {
+            "selects" => {
+                if params.selects.is_some() {
+                    let s = params.selects.as_ref().unwrap();
+                    self = self.selects(s);
+                }
+                DocumentSelectionValue::DocumentSelection(self)
+            },
+            "nodes" => {
+                if params.nodes.is_some() {
+                    let cur_node = params.nodes.as_ref().unwrap();
+                    self = cur_node.run(self);
+                }
+                DocumentSelectionValue::DocumentSelection(self)
+            },
+            "each" => {
+                let each = params.each.as_ref().unwrap();
+                DocumentSelectionValue::Value(each.each(self))
+            }
+
+            _ => {
+                DocumentSelectionValue::DocumentSelection(self)
+            }
+        }
+    }
+
     fn content(mut self, params: &SelectParams) -> Value {
         if params.nodes.is_some() {
             let cur_node = params.nodes.as_ref().unwrap();
             self = cur_node.run(self);
         }
-        // self = self.first_last_eq_parent_children(params);
+
         if params.select_params.is_some() {
             let cur_params = params.select_params.as_ref().as_ref().unwrap();
             let val = self.parse(cur_params);
             return val
         }
+
         if params.has.is_some() {
             let has = params.has.as_ref().unwrap();
             let (ds, b) = has.class(self);

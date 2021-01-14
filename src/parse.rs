@@ -15,6 +15,7 @@ use crate::each;
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
 pub struct SelectParams {
+    pub exec_order: Option<Vec<String>>,
     /// css selection
     pub selects: Option<Vec<String>>,
     pub nodes: Option<node::Node>,
