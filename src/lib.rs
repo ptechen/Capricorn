@@ -76,17 +76,6 @@ mod tests {
         println!("{:?}", r);
         Ok(())
     }
-
-    /// test regexes match parse html function
-    #[test]
-    fn test_regexes_match_parse_html1() -> Result<(), Box<dyn std::error::Error>> {
-        let yml = read_file("./test_pages/index.yml").unwrap();
-        let params: parse::HashMapSelectParams = serde_yaml::from_str(&yml).unwrap();
-        let html = read_file("./test_pages/index.html").unwrap();
-        let r = parse::parse_html(&params, &html);
-        println!("{:?}", r);
-        Ok(())
-    }
 }
 
 

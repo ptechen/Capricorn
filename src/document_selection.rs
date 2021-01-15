@@ -11,12 +11,13 @@ use crate::splits;
 use crate::text_attr_html;
 
 lazy_static! {
-    static ref DEFAULT_EXEC_ORDER:Vec<String> = vec![String::from("selects"), String::from("each"),
-                                      String::from("nodes"), String::from("has"),
-                                      String::from("contains")];
+    static ref DEFAULT_EXEC_ORDER:Vec<String> = vec![String::from("selects"),
+                                                     String::from("each"),
+                                                     String::from("select_params"),
+                                                     String::from("nodes"),
+                                                     String::from("has"),
+                                                     String::from("contains")];
 }
-
-
 
 pub enum DocumentSelection<'a> {
     ParseSelection(Selection<'a>),

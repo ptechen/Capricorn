@@ -15,6 +15,7 @@ last1:
     - b
   nodes:
     last: true
+  default_val_type: "str"
 
 eq:
   selects:
