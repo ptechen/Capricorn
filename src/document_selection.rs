@@ -10,15 +10,18 @@ use crate::deletes;
 use crate::splits;
 use crate::text_attr_html;
 
+lazy_static! {
+    static ref DEFAULT_EXEC_ORDER:Vec<String> = vec![String::from("selects"), String::from("each"),
+                                      String::from("nodes"), String::from("has"),
+                                      String::from("contains")];
+}
+
+
+
 pub enum DocumentSelection<'a> {
     ParseSelection(Selection<'a>),
     ParseDocument(&'a Document),
     ParseNode(Node<'a>),
-}
-
-pub enum DocumentSelectionValue<'a> {
-    DocumentSelection(DocumentSelection<'a>),
-    Value(Value)
 }
 
 impl<'a> Default for DocumentSelection<'a> {
@@ -29,94 +32,153 @@ impl<'a> Default for DocumentSelection<'a> {
 }
 
 impl<'a> DocumentSelection<'a> {
-
-    pub fn parse(self, params: &'a SelectParams) -> Value{
-        if params.exec_order.is_none() {
-            self.parse_html(params)
-        } else {
-
-        }
+    pub fn parse(self, params: &'a SelectParams) -> Value {
+        self.parse_exec_order(params)
     }
 
-    fn parse_html(mut self, params: &SelectParams) -> Value {
-        if params.selects.is_some() {
-            let s = params.selects.as_ref().unwrap();
-            self = self.selects(s);
-        }
+    pub fn html(self) -> (DocumentSelection<'a>, String) {
+        return match self {
+            DocumentSelection::ParseSelection(d) => {
+                let str_tendril = d.html();
+                let cur_str = str_tendril.trim();
+                (DocumentSelection::ParseSelection(d), String::from(cur_str))
+            }
 
-        return if params.each.is_some() {
-            let each = params.each.as_ref().unwrap();
-            each.each(self)
-        } else {
-            self.content(params)
+            DocumentSelection::ParseNode(d) => {
+                let str_tendril = d.html();
+                let cur_str = str_tendril.trim();
+                (DocumentSelection::ParseNode(d), String::from(cur_str))
+            }
+
+            DocumentSelection::ParseDocument(d) => {
+                let str_tendril = d.html();
+                let cur_str = str_tendril.trim();
+                (DocumentSelection::ParseDocument(d), String::from(cur_str))
+            }
         };
     }
 
-    fn parse_exec_order(mut self, params: &SelectParams, exec: &str) -> DocumentSelectionValue<'a> {
+    pub fn text(self) -> (DocumentSelection<'a>, String) {
+        return match self {
+            DocumentSelection::ParseSelection(d) => {
+                let str_tendril = d.text();
+                let cur_str = str_tendril.trim();
+                (DocumentSelection::ParseSelection(d), String::from(cur_str))
+            }
+
+            DocumentSelection::ParseNode(d) => {
+                let str_tendril = d.text();
+                let cur_str = str_tendril.trim();
+                (DocumentSelection::ParseNode(d), String::from(cur_str))
+            }
+
+            DocumentSelection::ParseDocument(d) => {
+                let str_tendril = d.text();
+                let cur_str = str_tendril.trim();
+                (DocumentSelection::ParseDocument(d), String::from(cur_str))
+            }
+        };
+    }
+
+    fn parse_exec_order(mut self, params: &SelectParams) -> Value {
+        let exec_order;
+        if params.exec_order.is_none() {
+            exec_order = DEFAULT_EXEC_ORDER.to_owned();
+        } else {
+            let or = params.exec_order.as_ref().unwrap();
+            exec_order = or.to_owned();
+        }
+        for val in exec_order.iter() {
+            if val == "each" {
+                if params.each.is_some() {
+                    let each = params.each.as_ref().unwrap();
+                    return each.each(self);
+                }
+            } else if val == "select_params" {
+                if params.select_params.is_some() {
+                    let cur_params = params.select_params.as_ref().as_ref().unwrap();
+                    return self.parse(cur_params);
+                }
+            } else {
+                self = self.parse_key(params, val);
+            }
+        }
+        self.content(params)
+    }
+
+    fn parse_key(mut self, params: &SelectParams, exec: &str) -> DocumentSelection<'a> {
         return match exec {
             "selects" => {
                 if params.selects.is_some() {
                     let s = params.selects.as_ref().unwrap();
                     self = self.selects(s);
                 }
-                DocumentSelectionValue::DocumentSelection(self)
-            },
+                self
+            }
+
             "nodes" => {
                 if params.nodes.is_some() {
                     let cur_node = params.nodes.as_ref().unwrap();
                     self = cur_node.run(self);
                 }
-                DocumentSelectionValue::DocumentSelection(self)
-            },
-            "each" => {
-                let each = params.each.as_ref().unwrap();
-                DocumentSelectionValue::Value(each.each(self))
+                self
             }
 
-            _ => {
-                DocumentSelectionValue::DocumentSelection(self)
+            "has" => {
+                if params.has.is_some() {
+                    let has = params.has.as_ref().unwrap();
+                    let (ds, b) = has.class(self);
+                    if !b {
+                        return DocumentSelection::default();
+                    }
+                    self = ds;
+
+                    let (ds, b) = has.attr(self);
+                    if !b {
+                        return DocumentSelection::default();
+                    }
+                    ds
+                } else {
+                    self
+                }
             }
-        }
+
+            "contains" => {
+                if params.contains.is_some() {
+                    let contains = params.contains.as_ref().unwrap();
+                    let (ds, b) = contains.call(self);
+                    if !b {
+                        DocumentSelection::default()
+                    } else {
+                        ds
+                    }
+                } else {
+                    self
+                }
+            }
+            _ => {
+                self
+            }
+        };
     }
 
-    fn content(mut self, params: &SelectParams) -> Value {
-        if params.nodes.is_some() {
-            let cur_node = params.nodes.as_ref().unwrap();
-            self = cur_node.run(self);
-        }
-
-        if params.select_params.is_some() {
-            let cur_params = params.select_params.as_ref().as_ref().unwrap();
-            let val = self.parse(cur_params);
-            return val
-        }
-
-        if params.has.is_some() {
-            let has = params.has.as_ref().unwrap();
-            let (ds, b) = has.class(self);
-            if !b {
-                return params.get_default_val();
-            }
-            self = ds;
-
-            let (ds, b) =  has.attr(self);
-            if !b {
-                return params.get_default_val();
-            }
-            self = ds;
-        }
-
+    fn content(self, params: &SelectParams) -> Value {
         if params.text_attr_html.is_none() {
             let text_attr_html = text_attr_html::TextAttrHtml::default();
             let v = text_attr_html.text(self);
-            contains_replaces_deletes_splits(v, params)
+            if v == "" {
+                return params.get_default_val();
+            }
+            replaces_deletes_splits(params, v)
         } else {
             let text_attr_html = params.text_attr_html.as_ref().unwrap();
             let v = text_attr_html.run(self);
-            contains_replaces_deletes_splits(v, params)
+            if v == "" {
+                return params.get_default_val();
+            }
+            replaces_deletes_splits(params, v)
         }
     }
-
 
 
     fn selects(mut self, params: &Vec<String>) -> DocumentSelection<'a> {
@@ -162,16 +224,6 @@ impl<'a> DocumentSelection<'a> {
     }
 }
 
-fn contains_replaces_deletes_splits(v: String, params: &SelectParams) -> Value {
-    if params.contains.is_some() {
-        let contains = params.contains.as_ref().unwrap();
-        if !contains.contains(&v) || !contains.not_contains(&v) {
-            return params.get_default_val();
-        };
-    }
-    let val = replaces_deletes_splits(params, v);
-    val
-}
 
 fn replaces_deletes_splits(params: &SelectParams, mut v: String) -> Value {
     if params.replaces.is_some() {
@@ -187,7 +239,7 @@ fn replaces_deletes_splits(params: &SelectParams, mut v: String) -> Value {
     if params.splits.is_some() {
         let s = params.splits.as_ref().unwrap();
         let val = splits::splits(s, v);
-        return val
+        return val;
     }
     Value::String(String::from(v))
 }

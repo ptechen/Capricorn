@@ -30,6 +30,9 @@ impl Each {
         for node in nodes.iter() {
             ds = DocumentSelection::ParseNode(node.to_owned());
             let v = ds.parse(params);
+            if v.is_null() {
+                continue
+            }
             array.push(v);
         }
         Value::Array(array)

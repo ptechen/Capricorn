@@ -22,6 +22,17 @@ each:
       selects:
         - .city
         - a
+      contains:
+        contains:
+          text:
+            - '上海'
+          html:
+            - '上海'
+        not_contains:
+          text:
+            - '上海'
+          html:
+            - '上海'
 
 each_one:
   selects:
@@ -44,6 +55,8 @@ each_one_contains:
         - a
       contains:
         contains:
-          - 上海
+          text:
+            - 上海
         not_contains:
-          - 杭州
+          text:
+            - 杭州

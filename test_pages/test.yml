@@ -11,6 +11,7 @@ last1:
     - .aa
   nodes:
     last: true
+  default_val_type: "str"
 
 text:
   selects:
@@ -66,7 +67,7 @@ deletes:
   text_attr_html:
     attr: href
   deletes:
-    -  
+    - ' '
     - \n
 
 splits:
@@ -195,8 +196,10 @@ contains:
     - .children
   contains:
     contains:
-      - child
-      - ren
+      text:
+        - child
+        - ren
     not_contains:
-      - 1\n
+      text:
+        - '1\n'
   default_val_type: str

@@ -1,3 +1,5 @@
+#[macro_use]
+extern crate lazy_static;
 pub mod parse;
 pub mod match_html;
 mod replace;
@@ -27,14 +29,11 @@ mod tests {
         let r = parse::parse_html(&params, &html);
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
-        assert_eq!(r.get("last1").unwrap(), "");
         assert_eq!(r.get("text").unwrap(), "bbbbbbbbb");
         assert_eq!(r.get("first").unwrap(), "first");
         assert_eq!(r.get("eq").unwrap(), "first");
-        assert_eq!(r.get("eeq").unwrap(), "");
         assert_eq!(r.get("replace").unwrap(), "!!!!!!");
         assert_eq!(r.get("attr").unwrap(), "/te!    st");
-        assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");
         assert_eq!(r.get("default_val_type").unwrap().as_str().unwrap(), "");
@@ -58,11 +57,9 @@ mod tests {
         let r =  v.regexes_match_parse_html(&html)?;
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
-        assert_eq!(r.get("last1").unwrap(), "");
         assert_eq!(r.get("text").unwrap(), "bbbbbbbbb");
         assert_eq!(r.get("first").unwrap(), "first");
         assert_eq!(r.get("eq").unwrap(), "first");
-        assert_eq!(r.get("eeq").unwrap(), "");
         assert_eq!(r.get("replace").unwrap(), "!!!!!!");
         assert_eq!(r.get("attr").unwrap(), "/te!    st");
         assert_eq!(r.get("deletes").unwrap(), "/test");
