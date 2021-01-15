@@ -1,0 +1,17 @@
+text:
+  selects:
+    - .text
+#  text_attr_html: # Default text, can be omitted
+#    text: true
+
+attr:
+  selects:
+    - a
+  text_attr_html:
+    attr: href
+
+html:
+  selects:
+    - a
+  text_attr_html:
+    html: true

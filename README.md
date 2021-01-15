@@ -1,8 +1,22 @@
 # Capricorn
 
-### Parse html according to configuration
+### Parse html according to configuration.
+### Capricorn is a html parsing library that supports recursion and custom execution order.
 [![Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
 
+### Default execution order
+    vec![String::from("selects"),
+        String::from("each"),
+        String::from("select_params"),
+        String::from("nodes"),
+        String::from("has"),
+        String::from("contains")];
+        
+    selects > each > (one or all or fields) > ... text_attr_html > (text or attr or html);
+    selects > select_params > selects > ... text_attr_html > (text or attr or html);
+    selects > nodes > has > contains > text_attr_html > (text or attr or html);
+                                                      
+    
 ### Example:
 #### [Parse html, test.yml, more...](https://github.com/ptechen/Capricorn/blob/main/test_html/test.yml)
     last:

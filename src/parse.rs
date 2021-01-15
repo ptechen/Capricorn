@@ -15,6 +15,7 @@ use crate::each;
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
 pub struct SelectParams {
+    pub exec_order: Option<Vec<String>>,
     /// css selection
     pub selects: Option<Vec<String>>,
     pub nodes: Option<node::Node>,
@@ -32,7 +33,7 @@ pub struct SelectParams {
     pub default_val_type: Option<String>,
 }
 
-pub(crate) type HashMapSelectParams = HashMap<String, SelectParams>;
+pub type HashMapSelectParams = HashMap<String, SelectParams>;
 
 /// Parse html entry
 pub fn parse_html(params: &HashMapSelectParams, html: &str) -> Map<String, Value> {

@@ -1,0 +1,24 @@
+first:
+  selects:
+    - .a
+  nodes:
+    first: true
+
+last:
+  selects:
+    - a
+  nodes:
+    last: true
+
+last1:
+  selects:
+    - b
+  nodes:
+    last: true
+  default_val_type: "str"
+
+eq:
+  selects:
+    - .a
+  nodes:
+    eq: 0

@@ -2,6 +2,7 @@ use tendril::StrTendril;
 use serde::Deserialize;
 use crate::document_selection::DocumentSelection;
 
+/// Has: Class and attr can exist at the same time.
 #[derive(Deserialize, Clone, Debug)]
 pub struct Has {
     pub class: Option<String>,

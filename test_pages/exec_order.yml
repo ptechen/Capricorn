@@ -1,0 +1,8 @@
+first:
+  exec_order:
+    - selects
+    - nodes
+  selects:
+    - a
+  nodes:
+    first: true

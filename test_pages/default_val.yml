@@ -1,0 +1,19 @@
+default_val_type:
+  selects:
+    - .f
+  has:
+    attr: href1dd
+  splits:
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
+  default_val_type: "str"
+
+default_val_type_vec:
+  selects:
+    - .f
+  has:
+    attr: href1dd
+  splits:
+    - {key: e, index: 0, enable: true}
+    - {key: dd, index: 1, enable: true}
+  default_val_type: "vec"
