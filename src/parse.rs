@@ -18,15 +18,15 @@ pub struct SelectParams {
     pub exec_order: Option<Vec<String>>,
     /// css selection
     pub selects: Option<Vec<String>>,
-    pub nodes: Option<node::Node>,
-    pub text_attr_html: Option<text_attr_html::TextAttrHtml>,
     /// each: all、fields、one
     pub each: Option<each::Each>,
     pub select_params: Box<Option<SelectParams>>,
+    pub nodes: Option<node::Node>,
     /// has: has class and has attr
     pub has: Option<has::Has>,
     /// contains: contains and not contains
     pub contains: Option<contains::Contains>,
+    pub text_attr_html: Option<text_attr_html::TextAttrHtml>,
     pub splits: Option<Splits>,
     pub deletes: Option<Deletes>,
     pub replaces: Option<Replaces>,
@@ -47,7 +47,6 @@ pub fn parse_html(params: &HashMapSelectParams, html: &str) -> Map<String, Value
     }
     hmp
 }
-
 
 impl SelectParams {
     fn default_val(&self, params: &String) -> Value {
