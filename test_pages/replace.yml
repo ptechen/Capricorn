@@ -1,0 +1,5 @@
+replace:
+  selects:
+    - div
+  replaces:
+    - { from: test_replace, to: replace_success }
