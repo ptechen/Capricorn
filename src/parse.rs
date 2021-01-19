@@ -3,14 +3,14 @@ use serde::Deserialize;
 use serde_json::{Value, Number, Map};
 use std::vec::Vec;
 use nipper::Document;
-use crate::{replace::Replaces, splits::Splits};
-use crate::deletes::Deletes;
+
 use crate::node;
 use crate::text_attr_html;
 use crate::document_selection::DocumentSelection;
 use crate::has;
 use crate::contains;
 use crate::each;
+use crate::data_format;
 
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
@@ -27,9 +27,7 @@ pub struct SelectParams {
     /// contains: contains and not contains
     pub contains: Option<contains::Contains>,
     pub text_attr_html: Option<text_attr_html::TextAttrHtml>,
-    pub splits: Option<Splits>,
-    pub deletes: Option<Deletes>,
-    pub replaces: Option<Replaces>,
+    pub data_format: Option<data_format::DataFormat>,
     pub default_val_type: Option<String>,
 }
 

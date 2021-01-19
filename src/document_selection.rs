@@ -5,9 +5,6 @@ use crate::document_selection::DocumentSelection::ParseSelection;
 use crate::document_selection::DocumentSelection::ParseDocument;
 use crate::document_selection::DocumentSelection::ParseNode;
 use crate::parse::SelectParams;
-use crate::replace;
-use crate::deletes;
-use crate::splits;
 use crate::text_attr_html;
 
 lazy_static! {
@@ -170,17 +167,24 @@ impl<'a> DocumentSelection<'a> {
             if v == "" {
                 return params.get_default_val();
             }
-            replaces_deletes_splits(params, v)
+            if params.data_format.is_none() {
+                return Value::String(v)
+            }
+            let data_format = params.data_format.as_ref().unwrap();
+            data_format.data_format(v)
         } else {
             let text_attr_html = params.text_attr_html.as_ref().unwrap();
             let v = text_attr_html.run(self);
             if v == "" {
                 return params.get_default_val();
             }
-            replaces_deletes_splits(params, v)
+            if params.data_format.is_none() {
+                return Value::String(v)
+            }
+            let data_format = params.data_format.as_ref().unwrap();
+            data_format.data_format(v)
         }
     }
-
 
     fn selects(mut self, params: &Vec<String>) -> DocumentSelection<'a> {
         for i in params.iter() {
@@ -226,21 +230,3 @@ impl<'a> DocumentSelection<'a> {
 }
 
 
-fn replaces_deletes_splits(params: &SelectParams, mut v: String) -> Value {
-    if params.replaces.is_some() {
-        let replaces = params.replaces.as_ref().unwrap();
-        v = replace::replaces(replaces, v);
-    }
-
-    if params.deletes.is_some() {
-        let del = params.deletes.as_ref().unwrap();
-        v = deletes::deletes(del, v);
-    }
-
-    if params.splits.is_some() {
-        let s = params.splits.as_ref().unwrap();
-        let val = splits::splits(s, v);
-        return val;
-    }
-    Value::String(String::from(v))
-}

@@ -11,7 +11,7 @@ mod text_attr_html;
 mod has;
 mod contains;
 mod each;
-
+mod data_format;
 
 #[cfg(test)]
 mod tests {

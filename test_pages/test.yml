@@ -48,7 +48,8 @@ replace:
     - .a
   nodes:
     eq: 1
-  replaces: [{from: "1", to: "!"}]
+  data_format:
+    replaces: [{from: "1", to: "!"}]
 
 attr:
   selects:
@@ -57,7 +58,8 @@ attr:
     eq: 1
   text_attr_html:
     attr: href
-  replaces: [{from: "\n", to: "!"}]
+  data_format:
+    replaces: [{from: "\n", to: "!"}]
 
 deletes:
   selects:
@@ -73,25 +75,28 @@ deletes:
 splits:
   selects:
     - .f
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
 
 asplits1:
   selects:
     - .g
-  splits:
-    - {key: \n, index: 0, enable: true}
-    - {key: fff, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: \n, index: 0, enable: true}
+      - {key: fff, index: 1, enable: true}
 
 default_val_type:
   selects:
     - .f
   has:
     attr: href1dd
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
   default_val_type: "str"
 
 default_val_type_vec:
@@ -99,9 +104,10 @@ default_val_type_vec:
     - .f
   has:
     attr: href1dd
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
   default_val_type: "vec"
 
 default_val_type_map:
@@ -109,9 +115,10 @@ default_val_type_map:
     - .f
   has:
     attr: href1dd
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
   default_val_type: "map"
 
 has_attr_splits:
@@ -121,9 +128,10 @@ has_attr_splits:
     eq: 1
   has:
     attr: href
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
   default_val_type: "vec"
 
 each_fields:
