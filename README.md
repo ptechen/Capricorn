@@ -3,7 +3,8 @@
 ### Parse html according to configuration.
 ### Capricorn is a html parsing library that supports recursion and custom execution order.
 [![Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
-
+[![Downloads](https://img.shields.io/crates/d/capricorn.svg?style=flat-square)](https://crates.io/crates/capricorn)
+  
 ### Default execution order
     vec![String::from("selects"),
         String::from("each"),
