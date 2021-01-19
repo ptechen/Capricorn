@@ -3,9 +3,10 @@ default_val_type:
     - .f
   has:
     attr: href1dd
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
   default_val_type: "str"
 
 default_val_type_vec:
@@ -13,7 +14,8 @@ default_val_type_vec:
     - .f
   has:
     attr: href1dd
-  splits:
-    - {key: e, index: 0, enable: true}
-    - {key: dd, index: 1, enable: true}
+  data_format:
+    splits:
+      - {key: e, index: 0, enable: true}
+      - {key: dd, index: 1, enable: true}
   default_val_type: "vec"
