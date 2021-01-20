@@ -5,6 +5,7 @@
 [![Version info](https://img.shields.io/crates/v/capricorn.svg)](https://crates.io/crates/capricorn)
 [![Downloads](https://img.shields.io/crates/d/capricorn.svg?style=flat-square)](https://crates.io/crates/capricorn)
 [![Build Status](https://www.travis-ci.org/ptechen/Capricorn.svg?branch=main)](https://www.travis-ci.org/ptechen/Capricorn)
+[![docs](https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square)](https://docs.rs/capricorn)
 
 ### Default execution order
     vec![String::from("selects"),
