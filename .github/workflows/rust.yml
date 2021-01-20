@@ -21,4 +21,4 @@ jobs:
       - name: Run tests
         run: cargo test --verbose
       - name: Run benchs
-          run: cargo bench --verbose
+        run: cargo bench --verbose
