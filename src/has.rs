@@ -1,6 +1,6 @@
-use tendril::StrTendril;
-use serde::Deserialize;
 use crate::document_selection::DocumentSelection;
+use serde::Deserialize;
+use tendril::StrTendril;
 
 /// Has: Class and attr can exist at the same time.
 #[derive(Deserialize, Clone, Debug)]
@@ -12,22 +12,25 @@ pub struct Has {
 impl Has {
     pub fn class<'a>(&self, ds: DocumentSelection<'a>) -> (DocumentSelection<'a>, bool) {
         if self.class.is_none() {
-            return (ds, true)
+            return (ds, true);
         }
         let class = self.class.as_ref().unwrap();
         if class == "" {
             return (ds, false);
         };
         return match ds {
-            DocumentSelection::ParseDocument(d) => {
-                (DocumentSelection::ParseDocument(d), d.root().has_class(class))
-            }
-            DocumentSelection::ParseSelection(d) => {
-                (DocumentSelection::ParseSelection(d.to_owned()), d.to_owned().has_class(class))
-            }
-            DocumentSelection::ParseNode(d) => {
-                (DocumentSelection::ParseNode(d.to_owned()), d.to_owned().has_class(class))
-            }
+            DocumentSelection::ParseDocument(d) => (
+                DocumentSelection::ParseDocument(d),
+                d.root().has_class(class),
+            ),
+            DocumentSelection::ParseSelection(d) => (
+                DocumentSelection::ParseSelection(d.to_owned()),
+                d.to_owned().has_class(class),
+            ),
+            DocumentSelection::ParseNode(d) => (
+                DocumentSelection::ParseNode(d.to_owned()),
+                d.to_owned().has_class(class),
+            ),
         };
     }
 

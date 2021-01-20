@@ -1,5 +1,5 @@
-use std::vec::Vec;
 use crate::replace;
+use std::vec::Vec;
 
 pub(crate) type Deletes = Vec<String>;
 
@@ -10,4 +10,3 @@ pub fn deletes(del: &Deletes, mut params: String) -> String {
     }
     params
 }
-

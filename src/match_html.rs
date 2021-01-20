@@ -1,10 +1,10 @@
-use std::vec::Vec;
-use serde_json::{Value, Map};
-use regex::{Regex};
-use std::error::Error;
-use serde_json::json;
-use serde::Deserialize;
 use crate::parse;
+use regex::Regex;
+use serde::Deserialize;
+use serde_json::json;
+use serde_json::{Map, Value};
+use std::error::Error;
+use std::vec::Vec;
 
 /// Choose different parsing configurations based on regular matching
 #[derive(Deserialize, Clone)]
@@ -25,9 +25,12 @@ pub struct MatchHtml {
 }
 
 impl MatchHtmlVec {
-    pub fn regexes_match_parse_html(&self, html: &str) -> Result<Map<String, Value>, Box<dyn Error>> {
+    pub fn regexes_match_parse_html(
+        &self,
+        html: &str,
+    ) -> Result<Map<String, Value>, Box<dyn Error>> {
         if self.regexes_match_parse_html.is_none() {
-            return Err(Box::from("regexes does not exist"))
+            return Err(Box::from("regexes does not exist"));
         }
         for match_html in self.regexes_match_parse_html.as_ref().unwrap().iter() {
             if match_html.regex.is_some() && match_html.fields.is_some() {
@@ -42,15 +45,14 @@ impl MatchHtmlVec {
                     let mut val = parse::parse_html(select_params, html);
                     if match_html.version.is_some() {
                         let version = match_html.version.as_ref().unwrap();
-                        val.insert( String::from("version"), json!(version));
+                        val.insert(String::from("version"), json!(version));
                     }
-                    return Ok(val)
+                    return Ok(val);
                 } else {
-                    continue
+                    continue;
                 }
             }
         }
         return Err(Box::from("All regexes do not match"));
     }
 }
-

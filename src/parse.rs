@@ -1,16 +1,16 @@
-use std::collections::HashMap;
-use serde::Deserialize;
-use serde_json::{Value, Number, Map};
-use std::vec::Vec;
 use nipper::Document;
+use serde::Deserialize;
+use serde_json::{Map, Number, Value};
+use std::collections::HashMap;
+use std::vec::Vec;
 
+use crate::contains;
+use crate::data_format;
+use crate::document_selection::DocumentSelection;
+use crate::each;
+use crate::has;
 use crate::node;
 use crate::text_attr_html;
-use crate::document_selection::DocumentSelection;
-use crate::has;
-use crate::contains;
-use crate::each;
-use crate::data_format;
 
 /// Parse html params
 #[derive(Default, Deserialize, Clone, Debug)]
@@ -71,5 +71,3 @@ impl SelectParams {
         return Value::default();
     }
 }
-
-

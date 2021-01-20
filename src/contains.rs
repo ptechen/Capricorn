@@ -1,6 +1,6 @@
-use serde::Deserialize;
-use crate::replace;
 use crate::document_selection::DocumentSelection;
+use crate::replace;
+use serde::Deserialize;
 
 #[derive(Deserialize, Clone, Debug)]
 pub struct Contains {

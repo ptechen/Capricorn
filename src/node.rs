@@ -2,7 +2,7 @@ use crate::document_selection::DocumentSelection;
 use nipper::Selection;
 use serde::Deserialize;
 
-#[derive(Default,Deserialize, Clone, Debug)]
+#[derive(Default, Deserialize, Clone, Debug)]
 pub struct Node {
     pub first: Option<bool>,
     pub last: Option<bool>,
@@ -45,9 +45,7 @@ impl Node {
                         DocumentSelection::default()
                     }
                 }
-                _ => {
-                    params
-                }
+                _ => params,
             };
         }
         params
@@ -65,9 +63,7 @@ impl Node {
                         DocumentSelection::default()
                     }
                 }
-                _ => {
-                    params
-                }
+                _ => params,
             };
         }
         params
@@ -85,10 +81,8 @@ impl Node {
                     DocumentSelection::default()
                 }
             }
-            _ => {
-                params
-            }
-        }
+            _ => params,
+        };
     }
 
     fn parent<'a>(&self, params: DocumentSelection<'a>) -> DocumentSelection<'a> {

@@ -17,7 +17,7 @@ impl TextAttrHtml {
             self.html(params)
         } else {
             self.text(params)
-        }
+        };
     }
 
     pub fn text<'a>(&self, params: DocumentSelection<'a>) -> String {

@@ -1,10 +1,9 @@
-use criterion::{criterion_group, criterion_main, Criterion};
-
 use capricorn::parse;
+use capricorn::parse::SelectParams;
+use criterion::{criterion_group, criterion_main, Criterion};
 use quicli::prelude::*;
 use serde_yaml;
 use std::collections::HashMap;
-use capricorn::parse::SelectParams;
 
 pub fn set_heap() {
     let yml = read_file("./test_pages/test.yml").unwrap();
@@ -28,6 +27,6 @@ fn criterion_benchmark_box(c: &mut Criterion) {
     c.bench_function("box<run> ", |b| b.iter(|| box_stock()));
 }
 
-criterion_group!(benches, criterion_benchmark_heap,criterion_benchmark_box);
+criterion_group!(benches, criterion_benchmark_heap, criterion_benchmark_box);
 // criterion_group!(benches, criterion_benchmark_heap);
 criterion_main!(benches);

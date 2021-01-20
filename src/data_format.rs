@@ -1,10 +1,10 @@
-use serde::Deserialize;
-use serde_json::Value;
-use crate::{replace::Replaces, splits::Splits};
+use crate::deletes;
 use crate::deletes::Deletes;
 use crate::replace;
-use crate::deletes;
 use crate::splits;
+use crate::{replace::Replaces, splits::Splits};
+use serde::Deserialize;
+use serde_json::Value;
 
 /// Has: Class and attr can exist at the same time.
 #[derive(Deserialize, Clone, Debug)]
@@ -35,11 +35,11 @@ impl DataFormat {
         }
 
         if self.find.is_some() {
-            return self.find(&v)
+            return self.find(&v);
         }
 
         if self.find_iter.is_some() {
-            return self.find_iter(&v)
+            return self.find_iter(&v);
         }
         Value::String(String::from(v))
     }
@@ -51,7 +51,7 @@ impl DataFormat {
             let r = r.unwrap();
             if r.is_match(v) {
                 let v = r.find(v).unwrap().as_str();
-                return Value::String(v.to_string())
+                return Value::String(v.to_string());
             }
         }
         Value::String(v.to_string())
@@ -63,8 +63,11 @@ impl DataFormat {
         if r.is_ok() {
             let r = r.unwrap();
             if r.is_match(v) {
-                let v:Vec<Value> = r.find_iter(v).map(|mat| Value::String(String::from(mat.as_str()))).collect();
-                return Value::Array(v)
+                let v: Vec<Value> = r
+                    .find_iter(v)
+                    .map(|mat| Value::String(String::from(mat.as_str())))
+                    .collect();
+                return Value::Array(v);
             }
         }
         let array = vec![Value::String(v.to_string())];

@@ -1,25 +1,25 @@
 #[macro_use]
 extern crate lazy_static;
-pub mod parse;
-pub mod match_html;
-mod replace;
-mod splits;
+mod contains;
+mod data_format;
 mod deletes;
 mod document_selection;
-mod node;
-mod text_attr_html;
-mod has;
-mod contains;
 mod each;
-mod data_format;
+mod has;
+pub mod match_html;
+mod node;
+pub mod parse;
+mod replace;
+mod splits;
+mod text_attr_html;
 
 #[cfg(test)]
 mod tests {
-    use quicli::prelude::*;
-    use serde_yaml;
-    use serde_json::Value;
-    use crate::parse;
     use crate::match_html;
+    use crate::parse;
+    use quicli::prelude::*;
+    use serde_json::Value;
+    use serde_yaml;
     /// test parse html function
     #[test]
     fn test_parse_html() -> Result<(), Box<dyn std::error::Error>> {
@@ -37,8 +37,14 @@ mod tests {
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");
         assert_eq!(r.get("default_val_type").unwrap().as_str().unwrap(), "");
-        assert_eq!(r.get("html").unwrap(), "<a class=\"a\" href=\"/te\n    st\">111111</a>");
-        let v = vec![Value::String(String::from("last")), Value::String(String::from("last"))];
+        assert_eq!(
+            r.get("html").unwrap(),
+            "<a class=\"a\" href=\"/te\n    st\">111111</a>"
+        );
+        let v = vec![
+            Value::String(String::from("last")),
+            Value::String(String::from("last")),
+        ];
         assert_eq!(r.get("each").unwrap().as_array().unwrap(), &v);
         assert_eq!(r.get("prev_sibling").unwrap(), "prev");
         assert_eq!(r.get("next_sibling").unwrap(), "next");
@@ -52,9 +58,9 @@ mod tests {
     #[test]
     fn test_regexes_match_parse_html() -> Result<(), Box<dyn std::error::Error>> {
         let yml = read_file("./test_pages/regexes_match_parse_html.yml").unwrap();
-        let v:  match_html::MatchHtmlVec = serde_yaml::from_str(&yml).unwrap();
+        let v: match_html::MatchHtmlVec = serde_yaml::from_str(&yml).unwrap();
         let html = read_file("./test_pages/test.html").unwrap();
-        let r =  v.regexes_match_parse_html(&html)?;
+        let r = v.regexes_match_parse_html(&html)?;
         assert_eq!(r.get("splits").unwrap(), "ff");
         assert_eq!(r.get("last").unwrap(), "last");
         assert_eq!(r.get("text").unwrap(), "bbbbbbbbb");
@@ -66,8 +72,14 @@ mod tests {
         assert_eq!(r.get("deletes").unwrap(), "/test");
         assert_eq!(r.get("has_attr_splits").unwrap(), "ff");
         assert_eq!(r.get("default_val_type").unwrap().as_str().unwrap(), "");
-        assert_eq!(r.get("html").unwrap(), "<a class=\"a\" href=\"/te\n    st\">111111</a>");
-        let v = vec![Value::String(String::from("last")), Value::String(String::from("last"))];
+        assert_eq!(
+            r.get("html").unwrap(),
+            "<a class=\"a\" href=\"/te\n    st\">111111</a>"
+        );
+        let v = vec![
+            Value::String(String::from("last")),
+            Value::String(String::from("last")),
+        ];
         assert_eq!(r.get("each").unwrap().as_array().unwrap(), &v);
         assert_eq!(r.get("prev_sibling").unwrap(), "prev");
         assert_eq!(r.get("next_sibling").unwrap(), "next");
@@ -77,8 +89,3 @@ mod tests {
         Ok(())
     }
 }
-
-
-
-
-

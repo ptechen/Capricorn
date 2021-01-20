@@ -1,19 +1,21 @@
-use std::vec::Vec;
-use nipper::{Document, Selection, Node};
-use serde_json::Value;
-use crate::document_selection::DocumentSelection::ParseSelection;
 use crate::document_selection::DocumentSelection::ParseDocument;
 use crate::document_selection::DocumentSelection::ParseNode;
+use crate::document_selection::DocumentSelection::ParseSelection;
 use crate::parse::SelectParams;
 use crate::text_attr_html;
+use nipper::{Document, Node, Selection};
+use serde_json::Value;
+use std::vec::Vec;
 
 lazy_static! {
-    static ref DEFAULT_EXEC_ORDER:Vec<String> = vec![String::from("selects"),
-                                                     String::from("each"),
-                                                     String::from("select_params"),
-                                                     String::from("nodes"),
-                                                     String::from("has"),
-                                                     String::from("contains")];
+    static ref DEFAULT_EXEC_ORDER: Vec<String> = vec![
+        String::from("selects"),
+        String::from("each"),
+        String::from("select_params"),
+        String::from("nodes"),
+        String::from("has"),
+        String::from("contains")
+    ];
 }
 
 pub enum DocumentSelection<'a> {
@@ -154,9 +156,7 @@ impl<'a> DocumentSelection<'a> {
                     self
                 }
             }
-            _ => {
-                self
-            }
+            _ => self,
         };
     }
 
@@ -168,7 +168,7 @@ impl<'a> DocumentSelection<'a> {
                 return params.get_default_val();
             }
             if params.data_format.is_none() {
-                return Value::String(v)
+                return Value::String(v);
             }
             let data_format = params.data_format.as_ref().unwrap();
             data_format.data_format(v)
@@ -179,7 +179,7 @@ impl<'a> DocumentSelection<'a> {
                 return params.get_default_val();
             }
             if params.data_format.is_none() {
-                return Value::String(v)
+                return Value::String(v);
             }
             let data_format = params.data_format.as_ref().unwrap();
             data_format.data_format(v)
@@ -218,9 +218,7 @@ impl<'a> DocumentSelection<'a> {
                 let v = [root].to_vec();
                 v
             }
-            self::ParseSelection(d) => {
-                d.nodes().to_vec()
-            }
+            self::ParseSelection(d) => d.nodes().to_vec(),
             self::ParseNode(d) => {
                 let v = [d.to_owned()].to_vec();
                 v
@@ -228,5 +226,3 @@ impl<'a> DocumentSelection<'a> {
         };
     }
 }
-
-
