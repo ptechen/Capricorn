@@ -4,7 +4,7 @@ find:
   nodes:
     first: true
   data_format:
-    find: '(f)'
+    find: 'f'
 
 find_iter:
   selects:
@@ -12,4 +12,4 @@ find_iter:
   nodes:
     first: true
   data_format:
-    find_iter: '(f)'
+    find_iter: 'f'

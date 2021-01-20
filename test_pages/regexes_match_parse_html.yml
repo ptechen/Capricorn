@@ -75,8 +75,8 @@ regexes_match_parse_html:
         text_attr_html:
           attr: 'href'
         data_format:
-        replaces:
-          - { from: "\n", to: "!" }
+          replaces:
+            - { from: "\n", to: "!" }
 
       deletes:
         selects:
