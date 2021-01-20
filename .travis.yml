@@ -11,6 +11,3 @@ script:
     fi
   - RUST_BACKTRACE=1 cargo build --verbose --all
   - RUST_BACKTRACE=1 cargo test --verbose --all
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
