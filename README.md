@@ -20,104 +20,29 @@
     selects > nodes > has > contains > text_attr_html > (text or attr or html);
                                                       
     
-### Example:
-#### [Parse html, test.yml, more...](https://github.com/ptechen/Capricorn/blob/main/test_html/test.yml)
-    last:
-      selects:
-        - '.a'
-      nodes:
-        last: true
-    #  text_attr_html: # Default text, can be omitted
-    #    text: true
-    
-    last1:
-      selects:
-        - '.aa'
-      nodes:
-        last: true
-
-#### [Multi-version regular matching parsing html, regexes_match_parse_html.yml, more...](https://github.com/ptechen/Capricorn/blob/main/test_html/regexes_match_parse_html.yml)
-    regexes_match_parse_html:
-      - regex: 'error'
-        version: 1
-        err: "" # Custom error message, return error message directly if the regular expression matches successfully
-        fields:
-          last:
-            selects:
-              - '.a'
-            nodes:
-              last: true
-          #  text_attr_html: # Default text, can be omitted
-          #    text: true
-    
-      - regex: '.*?'
-        version: 1
-        fields:
-          last:
-            selects:
-              - '.a'
-            nodes:
-              last: true
-          #  text_attr_html: # Default text, can be omitted
-          #    text: true
-    
-          last1:
-            selects:
-              - '.aa'
-            nodes:
-              last: true
-    
-          text:
-            selects:
-              - '.b'
-    
-          first:
-            selects:
-              - '.a'
-            nodes:
-              first: true
-     
-#### test.html:
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
-    <a class="a">first</a>
-    <a class="a" href="/te
-        st">111111</a>
-    <a class="a">last</a>
-    <a class="b">bbb</a>
-    <a class="f" href="fff">fffddffeddggdd</a>
-    <a class="f" href="http://www.test.com">fffddffeddggdd</a>
-    <ul>
-        <li>
-            <a class="a">last</a>
-            <a class="b">bbb</a>
-        </li>
-        <li>
-            <a class="a">last</a>
-            <a class="b">bbb</a>
-        </li>
-    </ul>
-    
-    <div>
-        <a class="parent">parent</a>
-    </div>
-    <div>
-        <a>prev</a>
-    </div>
-    <div class="children">
-        <a>children1</a>
-        <a>children2</a>
-    </div>
-    <div>
-        <a>next</a>
-    </div>
-    </body>
-    </html>
+### Support:
+| Capricorn | support | example |val type|
+| :----: | :----: | :----- |:----:|
+| selects element | √ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name | String |
+| selects class | √ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - .class_name | String | 
+| selects class element | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - .class_name <br> &nbsp; &nbsp; &nbsp; - element_name | String | 
+| first | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - first: true | String | 
+| last | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - last: true | String | 
+| eq | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - eq: 0 | String | 
+| parent | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - parent: true | String | 
+| children | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - children: true | String | 
+| prev_sibling | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - prev_sibling: true | String | 
+| next_sibling | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - next_sibling: true | String | 
+| has_class | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; has: <br> &nbsp; &nbsp; &nbsp; class: class_name | String | 
+| has_attr | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; has: <br> &nbsp; &nbsp; &nbsp; attr: attr_name | String | 
+| each one | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; each: <br> &nbsp; &nbsp; &nbsp; one: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects:<br>&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; - .class_name<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ... | String | 
+| each all | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; each: <br> &nbsp; &nbsp; &nbsp; all: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects:<br>&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; - .class_name<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ... | Array | 
+| each fields | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; each: <br> &nbsp; &nbsp; &nbsp; fields: <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects:<br>&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; - .class_name<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ... <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name1: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects:<br>&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; - .class_name<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ...  | Map | 
+| select_params | √ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; select_params: <br> &nbsp; &nbsp; &nbsp; selects:<br>&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; - .class_name<br>&nbsp; &nbsp; &nbsp;  ... | ... | 
+| text | √ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; text_attr_html: <br> &nbsp; &nbsp; &nbsp; text: true | String |
+| attr | √ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; text_attr_html: <br> &nbsp; &nbsp; &nbsp; attr: true | String |
+| html | √ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; text_attr_html: <br> &nbsp; &nbsp; &nbsp; html: true | String |
+| ... | ... | ... | ... |
     
 #### [Parse html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
     let yml = read_file("./test_html/test.yml").unwrap();
