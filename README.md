@@ -53,7 +53,8 @@
 | data format deletes | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; deletes: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - str | String |
 | data format find | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; find: regex | String |
 | data format find_iter | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; find_iter: regex | Array |
-| Multi-version regular matching | ✔ |regexes_match_parse_html: <br>  &nbsp; &nbsp; - regex: regex <br> &nbsp; &nbsp; &nbsp; version: 1 <br> &nbsp; &nbsp; &nbsp; fields: <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ... <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ... | Map |
+| Multi-version regular matching err | ✔ |regexes_match_parse_html: <br>  &nbsp; &nbsp; - regex: regex <br> &nbsp; &nbsp; &nbsp; version: 1 <br> &nbsp; &nbsp; &nbsp; err: err_msg | Err |
+| Multi-version regular matching fields | ✔ |regexes_match_parse_html: <br>  &nbsp; &nbsp; - regex: regex <br> &nbsp; &nbsp; &nbsp; version: 1 <br> &nbsp; &nbsp; &nbsp; fields: <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ... <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ... | Map |
 
     
 #### [Parse html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)

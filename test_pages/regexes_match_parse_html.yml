@@ -1,13 +1,7 @@
 regexes_match_parse_html:
   - regex: 'error'
-    version: 1
-    err: "" # Custom error message, return error message directly if the regular expression matches successfully
-    fields:
-      last:
-        selects:
-          - '.a'
-        nodes:
-          last: true
+    version: 0
+    err: "err" # Custom error message, return error message directly if the regular expression matches successfully
       #  text_attr_html: # Default text, can be omitted
       #    text: true
 
