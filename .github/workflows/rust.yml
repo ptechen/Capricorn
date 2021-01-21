@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
       - name: Fmt check
         run: cargo fmt --all -- --check
       - name: Build
@@ -25,3 +25,18 @@ jobs:
       - name: Run benchs
         run: cargo bench --verbose
 
+  codecov:
+    name: Collect code coverage data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --verbose
+      - uses: actions-rs/grcov@v0.1
+        id: coverage
+      - name: upload to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: ${{ steps.coverage.outputs.report }}
