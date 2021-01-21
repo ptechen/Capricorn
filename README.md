@@ -6,7 +6,7 @@
 [![Downloads](https://img.shields.io/crates/d/capricorn.svg?style=flat-square)](https://crates.io/crates/capricorn)
 [![docs](https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square)](https://docs.rs/capricorn)
 [![example branch parameter](https://github.com/ptechen/capricorn/workflows/CI/badge.svg?branch=main)]()
-[![dependency status](https://deps.rs/crate/capricorn/0.1.9/status.svg)](https://deps.rs/crate/capricorn/0.1.9)
+[![dependency status](https://deps.rs/crate/capricorn/0.1.91/status.svg)](https://deps.rs/crate/capricorn)
 
 ### Default execution order
     vec![String::from("selects"),
