@@ -26,13 +26,13 @@
 | selects element | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name | String |
 | selects class | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - .class_name | String | 
 | selects class element | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - .class_name <br> &nbsp; &nbsp; &nbsp; - element_name | String | 
-| first | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - first: true | String | 
-| last | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - last: true | String | 
-| eq | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - eq: 0 | String | 
-| parent | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - parent: true | String | 
-| children | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - children: true | String | 
-| prev_sibling | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - prev_sibling: true | String | 
-| next_sibling | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; node: <br> &nbsp; &nbsp; &nbsp; - next_sibling: true | String | 
+| first | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; first: true | String | 
+| last | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; last: true | String | 
+| eq | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; eq: 0 | String | 
+| parent | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; parent: true | String | 
+| children | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; children: true | String | 
+| prev_sibling | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; prev_sibling: true | String | 
+| next_sibling | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; next_sibling: true | String | 
 | has_class | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; has: <br> &nbsp; &nbsp; &nbsp; class: class_name | String | 
 | has_attr | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; has: <br> &nbsp; &nbsp; &nbsp; attr: attr_name | String | 
 | each one | ✔ | field_name: <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; each: <br> &nbsp; &nbsp; &nbsp; one: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects:<br>&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; - .class_name<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  ... | String | 
