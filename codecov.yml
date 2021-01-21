@@ -1,0 +1,29 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 90%
+      moduleA:
+        target: 90%
+        flags:
+          - moduleA
+      moduleB:
+        target: 50%
+        flags:
+          - moduleB
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+  require_base: yes
+  require_head: yes
+  branches: null
+flags:
+  moduleA:
+    paths:
+      - src/moduleA/code.py
+    carryforward: false
+  moduleB:
+    paths:
+      - src/moduleB/code2.py
+    carryforward: true
