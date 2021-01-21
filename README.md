@@ -6,6 +6,7 @@
 [![Downloads](https://img.shields.io/crates/d/capricorn.svg?style=flat-square)](https://crates.io/crates/capricorn)
 [![docs](https://img.shields.io/badge/docs-latest-blue.svg?style=flat-square)](https://docs.rs/capricorn)
 [![example branch parameter](https://github.com/ptechen/capricorn/workflows/CI/badge.svg?branch=main)]()
+[![codecov.io](https://codecov.io/github/ptechen/capricorn/coverage.svg?branch=main)](https://codecov.io/github/ptechen/capricorn)
 
 ### Default execution order
     vec![String::from("selects"),

@@ -24,3 +24,5 @@ jobs:
         run: cargo test --verbose
       - name: Run benchs
         run: cargo bench --verbose
+      - name: codecov
+        run: bash <(curl -s https://codecov.io/bash)
