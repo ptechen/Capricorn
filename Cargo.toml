@@ -13,7 +13,7 @@ description = "Parse html according to configuration"
 
 [dependencies]
 
-nipper = "0.1.8"
+nipper = "0.1.9"
 quicli = "0.4.0"
 serde_yaml = "0.8.14"
 serde = { version = "1.0.117", features = ["derive"] }
