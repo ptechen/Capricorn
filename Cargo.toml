@@ -15,15 +15,15 @@ description = "Parse html according to configuration"
 
 nipper = "0.1.8"
 quicli = "0.4.0"
-serde_yaml = "0.8.14"
-serde = { version = "1.0.117", features = ["derive"] }
-serde_json = "1.0.59"
-tendril = "0.4.1"
-regex = "1.4.2"
+serde_yaml = "0.8.15"
+serde = { version = "1.0.120", features = ["derive"] }
+serde_json = "1.0.61"
+tendril = "0.4.2"
+regex = "1.4.3"
 lazy_static = "1.4.0"
 
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.3.3"
 
 [[bench]]
 name = "benchmark"
