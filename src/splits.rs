@@ -6,7 +6,6 @@ use serde_json::Value;
 pub struct Split {
     pub key: Option<String>,
     pub index: Option<usize>,
-    pub enable: Option<bool>,
 }
 
 impl Split {
@@ -15,16 +14,13 @@ impl Split {
             let key = self.key.as_ref().unwrap();
             let key = replace::special_char(key);
             let val: Vec<&str> = params.as_str().unwrap().split(&key).collect();
-            if self.enable.is_some() && self.index.is_some() {
-                let enable = self.enable.unwrap();
-                if enable {
-                    let index = self.index.unwrap();
-                    if index > val.len() - 1 {
-                        return Value::default();
-                    }
-                    let v = val.get(index).unwrap();
-                    return Value::from(*v);
+            if self.index.is_some() {
+                let index = self.index.unwrap();
+                if index > val.len() - 1 {
+                    return Value::default();
                 }
+                let v = val.get(index).unwrap();
+                return Value::from(*v);
             }
             return Value::from(val);
         }

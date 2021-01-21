@@ -95,16 +95,16 @@ regexes_match_parse_html:
           - '.f'
         data_format:
           splits:
-            - { key: 'e', index: 0, enable: true }
-            - { key: 'dd', index: 1, enable: true }
+            - { key: 'e', index: 0}
+            - { key: 'dd', index: 1}
 
       asplits1:
         selects:
           - '.g'
         data_format:
           splits:
-            - { key: '\n', index: 0, enable: true }
-            - { key: 'fff', index: 1, enable: true }
+            - { key: '\n', index: 0}
+            - { key: 'fff', index: 1}
 
       default_val_type:
         selects:
@@ -113,8 +113,8 @@ regexes_match_parse_html:
           attr: 'href1dd'
         data_format:
           splits:
-            - { key: 'e', index: 0, enable: true }
-            - { key: 'dd', index: 1, enable: true }
+            - { key: 'e', index: 0}
+            - { key: 'dd', index: 1}
         default_val_type: "str"
 
       default_val_type_vec:
@@ -124,8 +124,8 @@ regexes_match_parse_html:
           attr: 'href1dd'
         data_format:
           splits:
-            - { key: 'e', index: 0, enable: true }
-            - { key: 'dd', index: 1, enable: true }
+            - { key: 'e', index: 0 }
+            - { key: 'dd', index: 1 }
         default_val_type: "vec"
 
       default_val_type_map:
@@ -135,8 +135,8 @@ regexes_match_parse_html:
           attr: 'href1dd'
         data_format:
           splits:
-            - { key: 'e', index: 0, enable: true }
-            - { key: 'dd', index: 1, enable: true }
+            - { key: 'e', index: 0 }
+            - { key: 'dd', index: 1 }
         default_val_type: "map"
 
       has_attr_splits:
@@ -148,8 +148,8 @@ regexes_match_parse_html:
           attr: 'href'
         data_format:
           splits:
-            - { key: 'e', index: 0, enable: true }
-            - { key: 'dd', index: 1, enable: true }
+            - { key: 'e', index: 0 }
+            - { key: 'dd', index: 1 }
         default_val_type: "vec"
 
       each_fields:

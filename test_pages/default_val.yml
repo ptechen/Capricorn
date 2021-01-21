@@ -5,8 +5,8 @@ default_val_type:
     attr: href1dd
   data_format:
     splits:
-      - {key: e, index: 0, enable: true}
-      - {key: dd, index: 1, enable: true}
+      - {key: e, index: 0}
+      - {key: dd, index: 1}
   default_val_type: "str"
 
 default_val_type_vec:
@@ -16,6 +16,6 @@ default_val_type_vec:
     attr: href1dd
   data_format:
     splits:
-      - {key: e, index: 0, enable: true}
-      - {key: dd, index: 1, enable: true}
+      - {key: e, index: 0}
+      - {key: dd, index: 1}
   default_val_type: "vec"

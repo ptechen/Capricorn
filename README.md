@@ -42,7 +42,19 @@
 | text | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; text_attr_html: <br> &nbsp; &nbsp; &nbsp; text: true | String |
 | attr | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; text_attr_html: <br> &nbsp; &nbsp; &nbsp; attr: true | String |
 | html | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; text_attr_html: <br> &nbsp; &nbsp; &nbsp; html: true | String |
-| ... | ... | ... | ... |
+| text contains | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; contains: <br> &nbsp; &nbsp; &nbsp; contains: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - test | String |
+| text not contains | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; contains: <br> &nbsp; &nbsp; &nbsp; not_contains: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; text: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - test | String |
+| html contains | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; contains: <br> &nbsp; &nbsp; &nbsp; contains: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - test | String |
+| html not contains | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; contains: <br> &nbsp; &nbsp; &nbsp; not_contains: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - test | String |
+| exec order | ✔ | field_name:<br> &nbsp; exec_order: <br> &nbsp; &nbsp; &nbsp; - selects <br> &nbsp; &nbsp; &nbsp; - has <br> &nbsp; &nbsp; &nbsp; - nodes <br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; has: <br> &nbsp; &nbsp; &nbsp; class: class_name <br> &nbsp; nodes: <br> &nbsp; &nbsp; &nbsp; first: true | String |
+| data format splits | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; splits: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - { key: str } | Array |
+| data format splits | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; splits: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - { key: str, index: 0 } | String |
+| data format replaces | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; replaces: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - str | String |
+| data format deletes | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; deletes: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - str | String |
+| data format find | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; find: regex | String |
+| data format find_iter | ✔ | field_name:<br> &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; - element_name <br> &nbsp; data_format: <br> &nbsp; &nbsp; &nbsp; find_iter: regex | Array |
+| Multi-version regular matching | ✔ |regexes_match_parse_html: <br>  &nbsp; &nbsp; - regex: regex <br> &nbsp; &nbsp; &nbsp; version: 1 <br> &nbsp; &nbsp; &nbsp; fields: <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ... <br> &nbsp; &nbsp; &nbsp; &nbsp; field_name: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; selects: <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ... | Map |
+
     
 #### [Parse html code, more...](https://github.com/ptechen/Capricorn/blob/main/src/lib.rs)
     let yml = read_file("./test_html/test.yml").unwrap();
