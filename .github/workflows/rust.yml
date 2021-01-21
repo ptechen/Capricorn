@@ -24,11 +24,3 @@ jobs:
         run: cargo test --verbose
       - name: Run benchs
         run: cargo bench --verbose
-
-  codecov:
-    name: Collect code coverage data
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: upload
-        run: bash <(curl -s https://codecov.io/bash)
