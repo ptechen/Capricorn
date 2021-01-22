@@ -1,4 +1,4 @@
-use crate::replace;
+use crate::data_format;
 use serde::Deserialize;
 use serde_json::Value;
 
@@ -12,7 +12,7 @@ impl Split {
     pub fn split(&self, params: Value) -> Value {
         if self.key.is_some() {
             let key = self.key.as_ref().unwrap();
-            let key = replace::special_char(key);
+            let key = data_format::replaces::special_char(key);
             let val: Vec<&str> = params.as_str().unwrap().split(&key).collect();
             if self.index.is_some() {
                 let index = self.index.unwrap();

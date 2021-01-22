@@ -27,7 +27,7 @@ pub struct SelectParams {
     /// contains: contains and not contains
     pub contains: Option<contains::Contains>,
     pub text_attr_html: Option<text_attr_html::TextAttrHtml>,
-    pub data_format: Option<data_format::DataFormat>,
+    pub data_format: Option<data_format::data_format::DataFormat>,
     pub default_val_type: Option<String>,
 }
 

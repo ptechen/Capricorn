@@ -1,17 +1,13 @@
-use crate::deletes;
-use crate::deletes::Deletes;
-use crate::replace;
-use crate::splits;
-use crate::{replace::Replaces, splits::Splits};
+use crate::data_format;
 use serde::Deserialize;
 use serde_json::Value;
 
 /// Has: Class and attr can exist at the same time.
 #[derive(Deserialize, Clone, Debug)]
 pub struct DataFormat {
-    pub splits: Option<Splits>,
-    pub deletes: Option<Deletes>,
-    pub replaces: Option<Replaces>,
+    pub splits: Option<data_format::splits::Splits>,
+    pub deletes: Option<data_format::deletes::Deletes>,
+    pub replaces: Option<data_format::replaces::Replaces>,
     pub find: Option<String>,
     pub find_iter: Option<String>,
 }
@@ -20,17 +16,17 @@ impl DataFormat {
     pub fn data_format(&self, mut v: String) -> Value {
         if self.replaces.is_some() {
             let replaces = self.replaces.as_ref().unwrap();
-            v = replace::replaces(replaces, v);
+            v = data_format::replaces::replaces(replaces, v);
         }
 
         if self.deletes.is_some() {
             let del = self.deletes.as_ref().unwrap();
-            v = deletes::deletes(del, v);
+            v = data_format::deletes::deletes(del, v);
         }
 
         if self.splits.is_some() {
             let s = self.splits.as_ref().unwrap();
-            let val = splits::splits(s, v);
+            let val = data_format::splits::splits(s, v);
             return val;
         }
 

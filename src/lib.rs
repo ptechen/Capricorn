@@ -2,15 +2,12 @@
 extern crate lazy_static;
 mod contains;
 mod data_format;
-mod deletes;
 mod document_selection;
 mod each;
 mod has;
 pub mod match_html;
 mod node;
 pub mod parse;
-mod replace;
-mod splits;
 mod text_attr_html;
 
 #[cfg(test)]

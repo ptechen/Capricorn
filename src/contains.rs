@@ -1,5 +1,5 @@
+use crate::data_format;
 use crate::document_selection::DocumentSelection;
-use crate::replace;
 use serde::Deserialize;
 
 #[derive(Deserialize, Clone, Debug)]
@@ -28,7 +28,7 @@ impl TextHtml {
 
     fn contains(&self, params: &Vec<String>, content: String) -> bool {
         for pat in params.iter() {
-            let pat = replace::special_char(pat);
+            let pat = data_format::replaces::special_char(pat);
             let b = content.contains(&pat);
             if !b {
                 return b;
