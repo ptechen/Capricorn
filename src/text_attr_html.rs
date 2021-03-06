@@ -10,7 +10,7 @@ pub struct TextAttrHtml {
 }
 
 impl TextAttrHtml {
-    pub fn run<'a>(&self, params: DocumentSelection<'a>) -> String {
+    pub fn run(&self, params: DocumentSelection) -> String {
         return if self.attr.is_some() && self.attr.as_ref().unwrap() != "" {
             self.attr(params)
         } else if self.html.is_some() && self.html.unwrap() {
@@ -20,7 +20,7 @@ impl TextAttrHtml {
         };
     }
 
-    pub fn text<'a>(&self, params: DocumentSelection<'a>) -> String {
+    pub fn text(&self, params: DocumentSelection) -> String {
         return match params {
             DocumentSelection::ParseSelection(d) => {
                 let str_tendril = d.text();
@@ -42,7 +42,7 @@ impl TextAttrHtml {
         };
     }
 
-    fn html<'a>(&self, params: DocumentSelection<'a>) -> String {
+    fn html(&self, params: DocumentSelection) -> String {
         return match params {
             DocumentSelection::ParseSelection(d) => {
                 let str_tendril = d.html();
@@ -64,7 +64,7 @@ impl TextAttrHtml {
         };
     }
 
-    pub fn attr<'a>(&self, params: DocumentSelection<'a>) -> String {
+    pub fn attr(&self, params: DocumentSelection) -> String {
         let attr = self.attr.as_ref().unwrap();
         return match params {
             DocumentSelection::ParseSelection(d) => {

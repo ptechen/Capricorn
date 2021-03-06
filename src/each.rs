@@ -13,7 +13,7 @@ pub struct Each {
 }
 
 impl Each {
-    pub fn each<'a>(&self, ds: DocumentSelection<'a>) -> Value {
+    pub fn each(&self, ds: DocumentSelection) -> Value {
         return if self.all.is_some() {
             self.all(ds)
         } else if self.fields.is_some() {
@@ -23,7 +23,7 @@ impl Each {
         };
     }
 
-    fn all<'a>(&self, mut ds: DocumentSelection<'a>) -> Value {
+    fn all(&self, mut ds: DocumentSelection) -> Value {
         let params = self.all.as_ref().as_ref().unwrap();
         let nodes = ds.nodes();
         let mut array = Vec::new();
@@ -38,7 +38,7 @@ impl Each {
         Value::Array(array)
     }
 
-    fn one<'a>(&self, mut ds: DocumentSelection<'a>) -> Value {
+    fn one(&self, mut ds: DocumentSelection) -> Value {
         let params = self.one.as_ref().as_ref().unwrap();
         let nodes = ds.nodes();
         for node in nodes.iter() {
@@ -52,7 +52,7 @@ impl Each {
         params.get_default_val()
     }
 
-    fn fields<'a>(&self, ds: DocumentSelection<'a>) -> Value {
+    fn fields(&self, ds: DocumentSelection) -> Value {
         let each_keys = self.fields.as_ref().unwrap();
         let nodes = ds.nodes();
         let mut array = Vec::new();
