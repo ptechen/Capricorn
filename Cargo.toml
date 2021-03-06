@@ -1,6 +1,6 @@
 [package]
 name = "capricorn"
-version = "0.1.92"
+version = "0.1.93"
 authors = ["petechen <15736755067@163.com>"]
 edition = "2018"
 homepage = "https://github.com/ptechen"
