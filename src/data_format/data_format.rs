@@ -1,6 +1,7 @@
-use crate::data_format;
 use serde::Deserialize;
 use serde_json::Value;
+
+use crate::data_format;
 
 /// Has: Class and attr can exist at the same time.
 #[derive(Deserialize, Clone, Debug)]
@@ -8,8 +9,8 @@ pub struct DataFormat {
     pub splits: Option<data_format::splits::Splits>,
     pub deletes: Option<data_format::deletes::Deletes>,
     pub replaces: Option<data_format::replaces::Replaces>,
-    pub find: Option<String>,
-    pub find_iter: Option<String>,
+    pub find: Option<Vec<String>>,
+    pub find_iter: Option<Vec<String>>,
 }
 
 impl DataFormat {
@@ -41,29 +42,33 @@ impl DataFormat {
     }
 
     fn find(&self, v: &str) -> Value {
-        let re = self.find.as_ref().unwrap();
-        let r = regex::Regex::new(re);
-        if r.is_ok() {
-            let r = r.unwrap();
-            if r.is_match(v) {
-                let v = r.find(v).unwrap().as_str();
-                return Value::String(v.to_string());
+        let regexes = self.find.as_ref().unwrap();
+        for regex in regexes.iter() {
+            let r = regex::Regex::new(regex);
+            if r.is_ok() {
+                let r = r.unwrap();
+                if r.is_match(v) {
+                    let v = r.find(v).unwrap().as_str();
+                    return Value::String(v.to_string());
+                }
             }
         }
         Value::String(v.to_string())
     }
 
     fn find_iter(&self, v: &str) -> Value {
-        let re = self.find_iter.as_ref().unwrap();
-        let r = regex::Regex::new(re);
-        if r.is_ok() {
-            let r = r.unwrap();
-            if r.is_match(v) {
-                let v: Vec<Value> = r
-                    .find_iter(v)
-                    .map(|mat| Value::String(String::from(mat.as_str())))
-                    .collect();
-                return Value::Array(v);
+        let regexes = self.find_iter.as_ref().unwrap();
+        for regex in regexes.iter() {
+            let r = regex::Regex::new(regex);
+            if r.is_ok() {
+                let r = r.unwrap();
+                if r.is_match(v) {
+                    let v: Vec<Value> = r
+                        .find_iter(v)
+                        .map(|mat| Value::String(String::from(mat.as_str())))
+                        .collect();
+                    return Value::Array(v);
+                }
             }
         }
         let array = vec![Value::String(v.to_string())];
